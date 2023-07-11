@@ -109,8 +109,8 @@ func (controller *PurchaseOrder) DeletePurchaceOrder(writer http.ResponseWriter,
 	helper.WriteToResponseBody(writer, webResponse)
 }
 
-func (controller *PurchaseOrder) FindPOCodeById(writer http.ResponseWriter, request *http.Request, param httprouter.Params) {
-	poById := web.FindPurchaseOrderByIdRequest{}
+func (controller *PurchaseOrder) FindProductionFactory(writer http.ResponseWriter, request *http.Request, param httprouter.Params) {
+	poById := web.FindFactoryByIdRequest{}
 
 	poId := param.ByName("id")
 	id, err := strconv.Atoi(poId)
@@ -118,7 +118,26 @@ func (controller *PurchaseOrder) FindPOCodeById(writer http.ResponseWriter, requ
 
 	poById.Id = int64(id)
 
-	poResponse := controller.PurchaseOrderService.FindPoCode(request.Context(), poById)
+	poResponse := controller.PurchaseOrderService.FindProductionFactory(request.Context(), poById)
+	webResponse := web.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK",
+		Data:   poResponse,
+	}
+
+	helper.WriteToResponseBody(writer, webResponse)
+}
+
+func (controller *PurchaseOrder) FindFinsihingFactory(writer http.ResponseWriter, request *http.Request, param httprouter.Params) {
+	poById := web.FindFactoryByIdRequest{}
+
+	poId := param.ByName("id")
+	id, err := strconv.Atoi(poId)
+	helper.PanicError(err)
+
+	poById.Id = int64(id)
+
+	poResponse := controller.PurchaseOrderService.FindFinishingFactory(request.Context(), poById)
 	webResponse := web.WebResponse{
 		Code:   http.StatusOK,
 		Status: "OK",

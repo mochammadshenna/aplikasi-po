@@ -8,21 +8,45 @@ import (
 )
 
 type PurchaseOrder struct {
-	Id                 int64
-	FactoryName        string
-	PICName            string
-	QuantityPO         int64
-	QuantityProduction int64
-	Item               string
-	PaymentTerm        int64
-	CreatedAt          time.Time
-	ExpiredAt          time.Time
-	UnitItem           string
-	Description        string
-	Note               string
-	Status             string
-	StatusHistory      StatHistories
-	PoCodeId           int64
+	Id                    int64
+	ProductionFactory     int64
+	PICName               string
+	QuantityPO            int64
+	QuantityProduction    int64
+	ProductItem           ProductItems
+	PaymentTerm           int64
+	CreatedAt             time.Time
+	ExpiredAt             time.Time
+	UnitItem              string
+	Description           string
+	Status                string
+	StatusHistory         StatHistories
+	FinishingFactory      int64
+	ProductionFactoryName string
+	FinishingFactoryName  string
+}
+
+type ProductItems []ProdItem
+
+type ProdItem struct {
+	Id   int64  `json:"id"`
+	Name string `json:"name"`
+}
+
+func (p ProductItems) Value() (driver.Value, error) {
+	return json.Marshal(p)
+}
+
+func (s *ProductItems) Scan(value interface{}) error {
+	if value == nil {
+		return nil
+	}
+	b, ok := value.([]byte)
+	if !ok {
+		return errors.New("type assertion to []byte failed")
+	}
+
+	return json.Unmarshal(b, &s)
 }
 
 type StatHistories []StatHistory
@@ -48,8 +72,13 @@ func (s *StatHistories) Scan(value interface{}) error {
 	return json.Unmarshal(b, &s)
 }
 
-type POCode struct {
-	Id     int64
-	CodeId int64
-	Name   string
+type ProductionFactory struct {
+	Id   int64
+	Name string
+}
+
+type FinishingFactory struct {
+	Id   int64
+	Code string
+	Name string
 }

@@ -1,11 +1,11 @@
 package web
 
-type FindPurchaseOrderByIdRequest struct {
+type FindFactoryByIdRequest struct {
 	Id int64
 }
 
 type SavePurchaseOrderRequest struct {
-	FactoryName string
+	ProductionFactoryName string
 }
 
 type UpdatePurchaseOrderRequest struct {
@@ -13,5 +13,9 @@ type UpdatePurchaseOrderRequest struct {
 }
 
 type DeletePurchaseOrderRequest struct {
+	Id int64
+}
+
+type FindPurchaseOrderByIdRequest struct {
 	Id int64
 }

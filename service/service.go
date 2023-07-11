@@ -12,5 +12,7 @@ type PoService interface {
 	SavePurchaseOrder(ctx context.Context, request web.SavePurchaseOrderRequest) (res web.SavePurchaseOrderResponse, err error)
 	UpdatePurchaseOrder(ctx context.Context, request web.UpdatePurchaseOrderRequest) (res web.UpdatePurchaseOrderResponse, err error)
 	DeletePurchaseOrder(ctx context.Context, request web.DeletePurchaseOrderRequest)
-	FindPoCode(ctx context.Context, request web.FindPurchaseOrderByIdRequest) web.FindPOCodeResponse
+
+	FindProductionFactory(ctx context.Context, request web.FindFactoryByIdRequest) web.FindProductionFactoryResponse
+	FindFinishingFactory(ctx context.Context, request web.FindFactoryByIdRequest) web.FindFinishingFactoryResponse
 }

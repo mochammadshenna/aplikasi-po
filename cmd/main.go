@@ -30,7 +30,9 @@ func main() {
 	router.POST("/api/purchase", purchaseController.SavePurchaceOrder)
 	router.PUT("/api/purchase/:id", purchaseController.UpdatePurchaceOrder)
 	router.DELETE("/api/purchase/:id", purchaseController.DeletePurchaceOrder)
-	router.GET("/api/code/:id", purchaseController.FindPOCodeById)
+
+	router.GET("/api/produksi/:id", purchaseController.FindProductionFactory)
+	router.GET("/api/finishing/:id", purchaseController.FindFinsihingFactory)
 
 	server := http.Server{
 		Addr:    host,

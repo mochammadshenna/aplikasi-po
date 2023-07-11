@@ -19,22 +19,23 @@ func NewPurchaseRepository() PurchaseOrderRepository {
 
 func (repository *PurchaseOrder) FindAll(ctx context.Context, tx *sql.Tx) ([]domain.PurchaseOrder, error) {
 	query := `SELECT
-				id,
-				factory_name,
-				pic_name,
-				quantity_po,
-				quantity_production,
-				item,
-				payment_term,
-				created_at,
-				expired_at,
-				unit_item,
-				description,
-				note,
-				status,
-				status_history,
-				po_code_id
-			FROM purchase_orders po`
+				po.id,
+				pf.name,
+				po.pic_name,
+				po.quantity_po,
+				po.quantity_production,
+				po.product_item,
+				po.payment_term,
+				po.created_at,
+				po.expired_at,
+				po.unit_item,
+				po.description,
+				po.status,
+				po.status_history,
+				ff.name
+			FROM purchase_orders po
+			LEFT JOIN production_factories pf ON pf.id = po.production_factory
+			LEFT JOIN finishing_factories ff ON ff.id = po.finishing_factory`
 
 	var result []domain.PurchaseOrder
 	rows, err := tx.QueryContext(ctx, query)
@@ -47,20 +48,20 @@ func (repository *PurchaseOrder) FindAll(ctx context.Context, tx *sql.Tx) ([]dom
 		var po domain.PurchaseOrder
 		err := rows.Scan(
 			&po.Id,
-			&po.FactoryName,
+			&po.ProductionFactoryName,
 			&po.PICName,
 			&po.QuantityPO,
 			&po.QuantityProduction,
-			&po.Item,
+			&po.ProductItem,
 			&po.PaymentTerm,
 			&po.CreatedAt,
 			&po.ExpiredAt,
 			&po.UnitItem,
 			&po.Description,
-			&po.Note,
 			&po.Status,
 			&po.StatusHistory,
-			&po.PoCodeId)
+			&po.FinishingFactoryName,
+		)
 		helper.PanicOnErrorContext(ctx, err)
 		result = append(result, po)
 	}
@@ -74,46 +75,50 @@ func (repository *PurchaseOrder) FindAll(ctx context.Context, tx *sql.Tx) ([]dom
 
 func (repository *PurchaseOrder) FindById(ctx context.Context, tx *sql.Tx, poId int) (domain.PurchaseOrder, error) {
 	query := `SELECT
-				id,
-				factory_name,
-				pic_name,
-				quantity_po,
-				quantity_production,
-				item,
-				payment_term,
-				created_at,
-				expired_at,
-				unit_item,
-				description,
-				note,
-				status,
-				status_history,
-				po_code_id
+				po.id,
+				pf.name,
+				po.pic_name,
+				po.quantity_po,
+				po.quantity_production,
+				po.product_item,
+				po.payment_term,
+				po.created_at,
+				po.expired_at,
+				po.unit_item,
+				po.description,
+				po.status,
+				po.status_history,
+				ff.name
 			FROM purchase_orders po
-			WHERE id = $1`
+			LEFT JOIN production_factories pf ON pf.id = po.production_factory
+			LEFT JOIN finishing_factories ff ON ff.id = po.finishing_factory
+			WHERE po.id = $1`
 
 	var po domain.PurchaseOrder
 
 	rows, err := tx.QueryContext(ctx, query, poId)
 	helper.PanicError(err)
+	defer func() {
+		err = rows.Close()
+		helper.PanicOnErrorContext(ctx, err)
+	}()
 
 	if rows.Next() {
 		err := rows.Scan(
 			&po.Id,
-			&po.FactoryName,
+			&po.ProductionFactoryName,
 			&po.PICName,
 			&po.QuantityPO,
 			&po.QuantityProduction,
-			&po.Item,
+			&po.ProductItem,
 			&po.PaymentTerm,
 			&po.CreatedAt,
 			&po.ExpiredAt,
 			&po.UnitItem,
 			&po.Description,
-			&po.Note,
 			&po.Status,
 			&po.StatusHistory,
-			&po.PoCodeId,
+			&po.FinishingFactoryName,
 		)
 		helper.PanicError(err)
 		return po, nil
@@ -124,41 +129,37 @@ func (repository *PurchaseOrder) FindById(ctx context.Context, tx *sql.Tx, poId 
 
 func (repository *PurchaseOrder) SavePurchaseOrder(ctx context.Context, tx *sql.Tx, po domain.PurchaseOrder) (domain.PurchaseOrder, error) {
 	query := `INSERT INTO purchase_orders(
-			factory_name,
-			pic_name,
-			quantity_po,
-			quantity_production,
-			item,
-			payment_term,
-			created_at,
-			expired_at,
-			unit_item,
-			description,
-			note,
-			status,
-			status_history,
-			po_code_id)
-		VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
+					production_factory,
+					pic_name,
+					quantity_po,
+					quantity_production,
+					product_item,
+					payment_term,
+					created_at,
+					expired_at,
+					unit_item,
+					description,
+					status,
+					status_history,
+					finishing_factory)
+		VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
 		RETURNING id`
 
 	err := tx.QueryRowContext(ctx, query,
-		&po.FactoryName,
+		&po.ProductionFactory,
 		&po.PICName,
 		&po.QuantityPO,
 		&po.QuantityProduction,
-		&po.Item,
+		&po.ProductItem,
 		&po.PaymentTerm,
 		&po.CreatedAt,
 		&po.ExpiredAt,
 		&po.UnitItem,
 		&po.Description,
-		&po.Note,
 		&po.Status,
 		&po.StatusHistory,
-		&po.PoCodeId).Scan(&po.Id)
-	if err != nil {
-		return po, err
-	}
+		&po.FinishingFactory).Scan(&po.Id)
+	helper.PanicError(err)
 
 	return po, nil
 }
@@ -166,36 +167,34 @@ func (repository *PurchaseOrder) SavePurchaseOrder(ctx context.Context, tx *sql.
 func (repository *PurchaseOrder) UpdatePurchaseOrder(ctx context.Context, tx *sql.Tx, po domain.PurchaseOrder, poIds int64) (domain.PurchaseOrder, error) {
 	query := `UPDATE purchase_orders
 		SET
-			factory_name=$1,
+			production_factory=$1,
 			pic_name=$2,
 			quantity_po=$3,
 			quantity_production=$4,
-			item=$5,
+			product_item=$5,
 			payment_term=$6,
 			created_at=$7,
 			expired_at=$8,
 			unit_item=$9,
 			description=$10,
-			note=$11,
-			status=$12,
-			status_history=$13,
-			po_code_id=$14`
+			status=$11,
+			status_history=$12,
+			finishing_factory=$13`
 
 	res, err := tx.ExecContext(ctx, query,
-		&po.FactoryName,
+		&po.ProductionFactory,
 		&po.PICName,
 		&po.QuantityPO,
 		&po.QuantityProduction,
-		&po.Item,
+		&po.ProductItem,
 		&po.PaymentTerm,
 		&po.CreatedAt,
 		&po.ExpiredAt,
 		&po.UnitItem,
 		&po.Description,
-		&po.Note,
 		&po.Status,
 		&po.StatusHistory,
-		&po.PoCodeId)
+		&po.FinishingFactory)
 	helper.PanicOnErrorContext(ctx, err)
 	r, err := res.RowsAffected()
 	helper.PanicOnErrorContext(ctx, err)
@@ -213,23 +212,55 @@ func (repository *PurchaseOrder) DeletePurchaseOrder(ctx context.Context, tx *sq
 	helper.PanicOnErrorContext(ctx, err)
 }
 
-func (repository *PurchaseOrder) FindPoCode(ctx context.Context, tx *sql.Tx, codeId int) (domain.POCode, error) {
+func (repository *PurchaseOrder) FindFinishingFactory(ctx context.Context, tx *sql.Tx, codeId int) (domain.FinishingFactory, error) {
 	query := `SELECT
 				id,
 				code,
 				name
-			FROM po_codes pc
-			WHERE code = $1`
+			FROM finishing_factories
+			WHERE id = $1`
 
-	var pc domain.POCode
+	var pc domain.FinishingFactory
 
 	rows, err := tx.QueryContext(ctx, query, codeId)
 	helper.PanicError(err)
+	defer func() {
+		err = rows.Close()
+		helper.PanicOnErrorContext(ctx, err)
+	}()
 
 	if rows.Next() {
 		err := rows.Scan(
 			&pc.Id,
-			&pc.CodeId,
+			&pc.Code,
+			&pc.Name,
+		)
+		helper.PanicError(err)
+		return pc, nil
+	} else {
+		return pc, errors.New("PO is not found")
+	}
+}
+
+func (repository *PurchaseOrder) FindProductionFactory(ctx context.Context, tx *sql.Tx, codeId int) (domain.ProductionFactory, error) {
+	query := `SELECT
+				id,
+				name
+			FROM production_factories
+			WHERE id = $1`
+
+	var pc domain.ProductionFactory
+
+	rows, err := tx.QueryContext(ctx, query, codeId)
+	helper.PanicError(err)
+	defer func() {
+		err = rows.Close()
+		helper.PanicOnErrorContext(ctx, err)
+	}()
+
+	if rows.Next() {
+		err := rows.Scan(
+			&pc.Id,
 			&pc.Name,
 		)
 		helper.PanicError(err)

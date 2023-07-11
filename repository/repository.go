@@ -13,5 +13,7 @@ type PurchaseOrderRepository interface {
 	SavePurchaseOrder(ctx context.Context, tx *sql.Tx, po domain.PurchaseOrder) (domain.PurchaseOrder, error)
 	UpdatePurchaseOrder(ctx context.Context, tx *sql.Tx, po domain.PurchaseOrder, poIds int64) (domain.PurchaseOrder, error)
 	DeletePurchaseOrder(ctx context.Context, tx *sql.Tx, poId int64)
-	FindPoCode(ctx context.Context, tx *sql.Tx, codeId int) (domain.POCode, error)
+
+	FindFinishingFactory(ctx context.Context, tx *sql.Tx, codeId int) (domain.FinishingFactory, error)
+	FindProductionFactory(ctx context.Context, tx *sql.Tx, codeId int) (domain.ProductionFactory, error)
 }
