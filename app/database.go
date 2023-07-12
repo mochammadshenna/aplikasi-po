@@ -18,11 +18,11 @@ const (
 
 func NewDB() *sql.DB {
 
-	postgresqlDbInfo := fmt.Sprintf("host=%s port=%d user=%s "+
-		"password=%s dbname=%s sslmode=disable",
+	connStr := fmt.Sprintf("host=%s port=%d user=%s "+
+		"password=%s dbname=%s sslmode=disable slmode=verify-full",
 		host, port, user, password, dbname)
 
-	db, err := sql.Open("postgres", postgresqlDbInfo)
+	db, err := sql.Open("postgres", connStr)
 	helper.PanicError(err)
 
 	/*
