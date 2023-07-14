@@ -9,7 +9,7 @@ import (
 )
 
 func TestOpenConnection(t *testing.T) {
-	connStr := "host=localhost port=5432 user=root  password=root dbname=arbrion sslmode=disable"
+	connStr := "host=localhost port=5432 user=root  password=root dbname=arbrion"
 
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
