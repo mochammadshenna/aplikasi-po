@@ -9,6 +9,7 @@ import (
 	"github.com/mochammadshenna/aplikasi-po/model/domain"
 	"github.com/mochammadshenna/aplikasi-po/model/web"
 	"github.com/mochammadshenna/aplikasi-po/repository"
+	"github.com/mochammadshenna/aplikasi-po/util/exceptioncode"
 	"github.com/mochammadshenna/aplikasi-po/util/helper"
 )
 
@@ -65,7 +66,9 @@ func (service *PurchaseOrderService) FindPurchaseOrderById(ctx context.Context, 
 	defer helper.CommitOrRollback(tx)
 
 	po, err := service.PurchaseOrderRepository.FindById(ctx, tx, int(request.Id))
-	helper.PanicError(err)
+	if err != nil {
+		panic(exceptioncode.NewNotFoundError(err.Error()))
+	}
 
 	res := web.FindPurchaseOrderResponse{
 		Id:                 po.Id,
@@ -86,14 +89,16 @@ func (service *PurchaseOrderService) FindPurchaseOrderById(ctx context.Context, 
 	return res
 }
 
-func (service *PurchaseOrderService) SavePurchaseOrder(ctx context.Context, request web.SavePurchaseOrderRequest) (res web.SavePurchaseOrderResponse, err error) {
+func (service *PurchaseOrderService) SavePurchaseOrder(ctx context.Context, request web.SavePurchaseOrderRequest) (web.SavePurchaseOrderResponse, error) {
+	err := service.Validate.Struct(request)
+	helper.PanicError(err)
 
 	tx, err := service.DB.Begin()
 	helper.PanicError(err)
 	defer helper.CommitOrRollback(tx)
 
 	po := domain.PurchaseOrder{
-		ProductionFactoryName: request.ProductionFactoryName,
+		ProductionFactoryName: request.Name,
 	}
 
 	p, _ := service.PurchaseOrderRepository.SavePurchaseOrder(ctx, tx, po)
@@ -103,12 +108,17 @@ func (service *PurchaseOrderService) SavePurchaseOrder(ctx context.Context, requ
 }
 
 func (service *PurchaseOrderService) UpdatePurchaseOrder(ctx context.Context, request web.UpdatePurchaseOrderRequest) (res web.UpdatePurchaseOrderResponse, err error) {
+	errs := service.Validate.Struct(request)
+	helper.PanicError(errs)
+
 	tx, err := service.DB.Begin()
 	helper.PanicError(err)
 	defer helper.CommitOrRollback(tx)
 
 	po, err := service.PurchaseOrderRepository.FindById(ctx, tx, int(request.Id))
-	helper.PanicError(err)
+	if err != nil {
+		panic(exceptioncode.NewNotFoundError(err.Error()))
+	}
 
 	p, err := service.PurchaseOrderRepository.UpdatePurchaseOrder(ctx, tx, po, request.Id)
 	helper.PanicError(err)
@@ -122,7 +132,9 @@ func (service *PurchaseOrderService) DeletePurchaseOrder(ctx context.Context, re
 	defer helper.CommitOrRollback(tx)
 
 	po, err := service.PurchaseOrderRepository.FindById(ctx, tx, int(request.Id))
-	helper.PanicError(err)
+	if err != nil {
+		panic(exceptioncode.NewNotFoundError(err.Error()))
+	}
 
 	service.PurchaseOrderRepository.DeletePurchaseOrder(ctx, tx, po.Id)
 }
@@ -133,7 +145,9 @@ func (service *PurchaseOrderService) FindProductionFactory(ctx context.Context, 
 	defer helper.CommitOrRollback(tx)
 
 	po, err := service.PurchaseOrderRepository.FindFinishingFactory(ctx, tx, int(request.Id))
-	helper.PanicError(err)
+	if err != nil {
+		panic(exceptioncode.NewNotFoundError(err.Error()))
+	}
 
 	res := web.FindProductionFactoryResponse{
 		Id:   po.Id,
@@ -144,12 +158,17 @@ func (service *PurchaseOrderService) FindProductionFactory(ctx context.Context, 
 }
 
 func (service *PurchaseOrderService) FindFinishingFactory(ctx context.Context, request web.FindFactoryByIdRequest) web.FindFinishingFactoryResponse {
+	err := service.Validate.Struct(request)
+	helper.PanicError(err)
+
 	tx, err := service.DB.Begin()
 	helper.PanicError(err)
 	defer helper.CommitOrRollback(tx)
 
 	po, err := service.PurchaseOrderRepository.FindFinishingFactory(ctx, tx, int(request.Id))
-	helper.PanicError(err)
+	if err != nil {
+		panic(exceptioncode.NewNotFoundError(err.Error()))
+	}
 
 	res := web.FindFinishingFactoryResponse{
 		Id:   po.Id,

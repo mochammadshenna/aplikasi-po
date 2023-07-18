@@ -1,15 +1,16 @@
 package web
 
 type FindFactoryByIdRequest struct {
-	Id int64
+	Id int64 `validate:"required,number"`
 }
 
 type SavePurchaseOrderRequest struct {
-	ProductionFactoryName string
+	Name string `json:"name"`
 }
 
 type UpdatePurchaseOrderRequest struct {
-	Id int64
+	Id   int64
+	Name string `validate:"required,max=200,min=1"`
 }
 
 type DeletePurchaseOrderRequest struct {

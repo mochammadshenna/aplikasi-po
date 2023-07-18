@@ -12,6 +12,7 @@ import (
 	"github.com/mochammadshenna/aplikasi-po/controller"
 	"github.com/mochammadshenna/aplikasi-po/repository"
 	"github.com/mochammadshenna/aplikasi-po/service"
+	"github.com/mochammadshenna/aplikasi-po/util/exceptioncode"
 	"github.com/mochammadshenna/aplikasi-po/util/helper"
 )
 
@@ -33,6 +34,8 @@ func main() {
 
 	router.GET("/api/produksi/:id", purchaseController.FindProductionFactory)
 	router.GET("/api/finishing/:id", purchaseController.FindFinsihingFactory)
+
+	router.PanicHandler = exceptioncode.ErrorHandler
 
 	server := http.Server{
 		Addr:    host,

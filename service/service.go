@@ -9,7 +9,7 @@ import (
 type PoService interface {
 	FindAllPurchaseOrder(ctx context.Context) (web.FindAllPurchaceOrderRepsonse, error)
 	FindPurchaseOrderById(ctx context.Context, request web.FindPurchaseOrderByIdRequest) web.FindPurchaseOrderResponse
-	SavePurchaseOrder(ctx context.Context, request web.SavePurchaseOrderRequest) (res web.SavePurchaseOrderResponse, err error)
+	SavePurchaseOrder(ctx context.Context, request web.SavePurchaseOrderRequest) (web.SavePurchaseOrderResponse, error)
 	UpdatePurchaseOrder(ctx context.Context, request web.UpdatePurchaseOrderRequest) (res web.UpdatePurchaseOrderResponse, err error)
 	DeletePurchaseOrder(ctx context.Context, request web.DeletePurchaseOrderRequest)
 
