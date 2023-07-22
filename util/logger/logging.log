@@ -1,0 +1,2 @@
+current time:2023-07-22 11:25:34.451763881 +0700 WIB m=+0.004210063
+{"timestamp":"2023-07-22T04:25:40Z","message":"Successfully get finishing factory","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}

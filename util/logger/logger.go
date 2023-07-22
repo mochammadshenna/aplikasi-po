@@ -2,10 +2,15 @@ package logger
 
 import (
 	"context"
+	"fmt"
+	"io"
 	"os"
+	"path/filepath"
+	"time"
 
 	stackdriver "github.com/TV4/logrus-stackdriver-formatter"
 	"github.com/mochammadshenna/aplikasi-po/state"
+	"github.com/natefinch/lumberjack"
 	"github.com/sirupsen/logrus"
 )
 
@@ -20,24 +25,53 @@ func Init() {
 		stackdriver.WithStackSkip("github.com/pintarnya/pintarnya-kerja-backend/internal/util/logger")),
 	)
 
-	file, err := os.OpenFile("../util/logger/logging.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0600)
-	if err != nil {
-		panic(err)
-	}
-
-	Logger.SetOutput(file)
+	logPath := "util/logger/logging.log"
 
 	// output to file
-	// lumberjackLogger := &lumberjack.Logger{
-	// 	Filename:   filepath.ToSlash("../util/logging.log"),
-	// 	MaxSize:    500,   // MB
-	// 	MaxBackups: 100,   // MB
-	// 	MaxAge:     14,    // days
-	// 	Compress:   false, // disabled by default
+	lumberjackLogger := &lumberjack.Logger{
+		Filename:   filepath.ToSlash(logPath),
+		MaxSize:    500,   // MB
+		MaxBackups: 100,   // MB
+		MaxAge:     14,    // days
+		Compress:   false, // disabled by default
+	}
+
+	lumberjackLogger.Write([]byte(fmt.Sprintf("current time:%v\n", time.Now())))
+
+	mw := io.MultiWriter(os.Stdout, lumberjackLogger)
+	Logger.SetOutput(mw)
+
+	/**
+	* If the logger save on file and watcher it
+	**/
+	// logName := filepath.Base(logPath)
+	// watcher, err := fsnotify.NewWatcher()
+	// if err != nil {
+	// 	log.Fatal(err)
 	// }
-	// lumberjackLogger.Rotate()
-	// mw := io.MultiWriter(os.Stdout, lumberjackLogger)
-	// Logger.SetOutput(mw)
+	// defer watcher.Close()
+
+	// go func() {
+	// 	for event := range watcher.Events {
+	// 		if event.Op&fsnotify.Remove == fsnotify.Remove &&
+	// 			event.Name == logName {
+	// 			log.Println("rotate log", event.Name)
+	// 			lumberjackLogger.Rotate()
+	// 		}
+	// 	}
+	// }()
+
+	// err = watcher.Add(filepath.Dir(logPath))
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	// file, err := os.OpenFile("util/logger/logging.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0600)
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// Logger.SetOutput(file)
 }
 
 type loggerField struct {

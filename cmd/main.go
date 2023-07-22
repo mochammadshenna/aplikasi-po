@@ -45,7 +45,7 @@ func main() {
 		Handler: router,
 	}
 
-	fmt.Printf("Apps running on host:%s", host)
+	fmt.Printf("Apps running on host:%s \n", host)
 
 	err := server.ListenAndServe()
 	helper.PanicError(err)
