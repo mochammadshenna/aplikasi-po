@@ -11,6 +11,7 @@ import (
 	"github.com/mochammadshenna/aplikasi-po/repository"
 	"github.com/mochammadshenna/aplikasi-po/util/exceptioncode"
 	"github.com/mochammadshenna/aplikasi-po/util/helper"
+	"github.com/mochammadshenna/aplikasi-po/util/logger"
 )
 
 type PurchaseOrderService struct {
@@ -34,7 +35,9 @@ func (service *PurchaseOrderService) FindAllPurchaseOrder(ctx context.Context) (
 	defer helper.CommitOrRollback(tx)
 
 	pos, err := service.PurchaseOrderRepository.FindAll(ctx, tx)
-	helper.PanicError(err)
+	if err != nil {
+		logger.Error(ctx, "An error occurred while getting the purchase order data: %v", err)
+	}
 
 	var data web.FindAllPurchaceOrderRepsonse
 
@@ -67,6 +70,7 @@ func (service *PurchaseOrderService) FindPurchaseOrderById(ctx context.Context, 
 
 	po, err := service.PurchaseOrderRepository.FindById(ctx, tx, int(request.Id))
 	if err != nil {
+		logger.Errorf(ctx, "An error occurred while getting the purchase order by ID: %d with error: %+v", request.Id, err)
 		panic(exceptioncode.NewNotFoundError(err.Error()))
 	}
 
@@ -101,7 +105,8 @@ func (service *PurchaseOrderService) SavePurchaseOrder(ctx context.Context, requ
 		ProductionFactoryName: request.Name,
 	}
 
-	p, _ := service.PurchaseOrderRepository.SavePurchaseOrder(ctx, tx, po)
+	p, err := service.PurchaseOrderRepository.SavePurchaseOrder(ctx, tx, po)
+	helper.PanicOnErrorContext(ctx, err)
 
 	return helper.ToSavePurchaseOrderResponse(p), nil
 
@@ -117,6 +122,7 @@ func (service *PurchaseOrderService) UpdatePurchaseOrder(ctx context.Context, re
 
 	po, err := service.PurchaseOrderRepository.FindById(ctx, tx, int(request.Id))
 	if err != nil {
+		logger.Error(ctx, "An error occurred while updating the purchase order, error:%+v", err)
 		panic(exceptioncode.NewNotFoundError(err.Error()))
 	}
 
@@ -133,6 +139,7 @@ func (service *PurchaseOrderService) DeletePurchaseOrder(ctx context.Context, re
 
 	po, err := service.PurchaseOrderRepository.FindById(ctx, tx, int(request.Id))
 	if err != nil {
+		logger.Error(ctx, "An error occurred while delete the purchase order, error:%+v", err)
 		panic(exceptioncode.NewNotFoundError(err.Error()))
 	}
 
@@ -146,6 +153,7 @@ func (service *PurchaseOrderService) FindProductionFactory(ctx context.Context, 
 
 	po, err := service.PurchaseOrderRepository.FindFinishingFactory(ctx, tx, int(request.Id))
 	if err != nil {
+		logger.Error(ctx, "An error occurred while getting the production factory, error:%+v", err)
 		panic(exceptioncode.NewNotFoundError(err.Error()))
 	}
 
@@ -154,6 +162,7 @@ func (service *PurchaseOrderService) FindProductionFactory(ctx context.Context, 
 		Name: po.Name,
 	}
 
+	logger.Info(ctx, "Successfully get production factory")
 	return res
 }
 
@@ -167,6 +176,7 @@ func (service *PurchaseOrderService) FindFinishingFactory(ctx context.Context, r
 
 	po, err := service.PurchaseOrderRepository.FindFinishingFactory(ctx, tx, int(request.Id))
 	if err != nil {
+		logger.Error(ctx, "An error occurred while getting the finishing factory, error:%+v", err)
 		panic(exceptioncode.NewNotFoundError(err.Error()))
 	}
 
@@ -176,5 +186,6 @@ func (service *PurchaseOrderService) FindFinishingFactory(ctx context.Context, r
 		Name: po.Name,
 	}
 
+	logger.Info(ctx, "Successfully get finishing factory")
 	return res
 }

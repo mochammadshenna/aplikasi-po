@@ -5,6 +5,7 @@ go 1.20
 require (
 	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
+	github.com/TV4/logrus-stackdriver-formatter v0.1.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/containerd/fifo v1.1.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
@@ -18,6 +19,7 @@ require (
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator v9.31.0+incompatible // indirect
 	github.com/go-playground/validator/v10 v10.14.1 // indirect
+	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.3.2 // indirect
 	github.com/google/wire v0.5.0 // indirect
@@ -27,6 +29,7 @@ require (
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/moby/term v0.5.0 // indirect
 	github.com/morikuni/aec v1.0.0 // indirect
+	github.com/natefinch/lumberjack v2.0.0+incompatible // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect

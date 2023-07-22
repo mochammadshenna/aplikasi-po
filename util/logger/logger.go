@@ -2,7 +2,9 @@ package logger
 
 import (
 	"context"
+	"os"
 
+	stackdriver "github.com/TV4/logrus-stackdriver-formatter"
 	"github.com/mochammadshenna/aplikasi-po/state"
 	"github.com/sirupsen/logrus"
 )
@@ -13,6 +15,29 @@ var lf loggerField
 
 func Init() {
 	lf = newLoggerField()
+
+	Logger.SetFormatter(stackdriver.NewFormatter(
+		stackdriver.WithStackSkip("github.com/pintarnya/pintarnya-kerja-backend/internal/util/logger")),
+	)
+
+	file, err := os.OpenFile("../util/logger/logging.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0600)
+	if err != nil {
+		panic(err)
+	}
+
+	Logger.SetOutput(file)
+
+	// output to file
+	// lumberjackLogger := &lumberjack.Logger{
+	// 	Filename:   filepath.ToSlash("../util/logging.log"),
+	// 	MaxSize:    500,   // MB
+	// 	MaxBackups: 100,   // MB
+	// 	MaxAge:     14,    // days
+	// 	Compress:   false, // disabled by default
+	// }
+	// lumberjackLogger.Rotate()
+	// mw := io.MultiWriter(os.Stdout, lumberjackLogger)
+	// Logger.SetOutput(mw)
 }
 
 type loggerField struct {

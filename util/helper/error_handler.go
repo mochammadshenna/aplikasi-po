@@ -1,11 +1,11 @@
-package exceptioncode
+package helper
 
 import (
 	"net/http"
 
 	"github.com/go-playground/validator"
 	"github.com/mochammadshenna/aplikasi-po/model/web"
-	"github.com/mochammadshenna/aplikasi-po/util/helper"
+	"github.com/mochammadshenna/aplikasi-po/util/exceptioncode"
 )
 
 func ErrorHandler(writer http.ResponseWriter, request *http.Request, err interface{}) {
@@ -35,7 +35,7 @@ func validationError(writer http.ResponseWriter, request *http.Request, err inte
 			Data:   exception.Error(),
 		}
 
-		helper.WriteToResponseBody(writer, webResponse)
+		WriteToResponseBody(writer, webResponse)
 		return true // konversi ke error handler
 	} else {
 		return false
@@ -43,7 +43,7 @@ func validationError(writer http.ResponseWriter, request *http.Request, err inte
 }
 
 func notFoundError(writer http.ResponseWriter, request *http.Request, err interface{}) bool {
-	exception, ok := err.(NotFoundError)
+	exception, ok := err.(exceptioncode.NotFoundError)
 
 	if ok {
 		writer.Header().Set("Content-Type", "application/json")
@@ -55,7 +55,7 @@ func notFoundError(writer http.ResponseWriter, request *http.Request, err interf
 			Data:   exception.Error,
 		}
 
-		helper.WriteToResponseBody(writer, webResponse)
+		WriteToResponseBody(writer, webResponse)
 		return true // konversi ke error handler
 	} else {
 		return false
@@ -72,6 +72,6 @@ func internalServerError(writer http.ResponseWriter, request *http.Request, err 
 		Data:   err,
 	}
 
-	helper.WriteToResponseBody(writer, webResponse)
+	WriteToResponseBody(writer, webResponse)
 
 }

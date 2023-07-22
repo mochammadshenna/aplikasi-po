@@ -39,7 +39,7 @@ func (repository *PurchaseOrder) FindAll(ctx context.Context, tx *sql.Tx) ([]dom
 
 	var result []domain.PurchaseOrder
 	rows, err := tx.QueryContext(ctx, query)
-	helper.PanicOnErrorContext(ctx, err)
+	helper.TranslatePostgreError(ctx, err)
 	defer func() {
 		err = rows.Close()
 		helper.PanicOnErrorContext(ctx, err)
@@ -62,7 +62,7 @@ func (repository *PurchaseOrder) FindAll(ctx context.Context, tx *sql.Tx) ([]dom
 			&po.StatusHistory,
 			&po.FinishingFactoryName,
 		)
-		helper.PanicOnErrorContext(ctx, err)
+		helper.TranslatePostgreError(ctx, err)
 		result = append(result, po)
 	}
 
@@ -97,7 +97,7 @@ func (repository *PurchaseOrder) FindById(ctx context.Context, tx *sql.Tx, poId 
 	var po domain.PurchaseOrder
 
 	rows, err := tx.QueryContext(ctx, query, poId)
-	helper.PanicError(err)
+	helper.TranslatePostgreError(ctx, err)
 	defer func() {
 		err = rows.Close()
 		helper.PanicOnErrorContext(ctx, err)
@@ -120,7 +120,7 @@ func (repository *PurchaseOrder) FindById(ctx context.Context, tx *sql.Tx, poId 
 			&po.StatusHistory,
 			&po.FinishingFactoryName,
 		)
-		helper.PanicError(err)
+		helper.TranslatePostgreError(ctx, err)
 		return po, nil
 	} else {
 		return po, errors.New("PO is not found")
@@ -159,7 +159,7 @@ func (repository *PurchaseOrder) SavePurchaseOrder(ctx context.Context, tx *sql.
 		&po.Status,
 		&po.StatusHistory,
 		&po.FinishingFactory).Scan(&po.Id)
-	helper.PanicError(err)
+	helper.TranslatePostgreError(ctx, err)
 
 	return po, nil
 }
@@ -195,9 +195,9 @@ func (repository *PurchaseOrder) UpdatePurchaseOrder(ctx context.Context, tx *sq
 		&po.Status,
 		&po.StatusHistory,
 		&po.FinishingFactory)
-	helper.PanicOnErrorContext(ctx, err)
+	helper.TranslatePostgreError(ctx, err)
 	r, err := res.RowsAffected()
-	helper.PanicOnErrorContext(ctx, err)
+	helper.TranslatePostgreError(ctx, err)
 	if r == 0 {
 		return po, exceptioncode.ErrEmptyResult
 	}
@@ -209,7 +209,7 @@ func (repository *PurchaseOrder) DeletePurchaseOrder(ctx context.Context, tx *sq
 	sql := "DELETE FROM purchase_orders WHERE id = $1"
 
 	_, err := tx.ExecContext(ctx, sql, poId)
-	helper.PanicOnErrorContext(ctx, err)
+	helper.TranslatePostgreError(ctx, err)
 }
 
 func (repository *PurchaseOrder) FindFinishingFactory(ctx context.Context, tx *sql.Tx, codeId int) (domain.FinishingFactory, error) {
@@ -223,7 +223,9 @@ func (repository *PurchaseOrder) FindFinishingFactory(ctx context.Context, tx *s
 	var pc domain.FinishingFactory
 
 	rows, err := tx.QueryContext(ctx, query, codeId)
-	helper.PanicError(err)
+	if err != nil {
+		helper.TranslatePostgreError(ctx, err)
+	}
 	defer func() {
 		err = rows.Close()
 		helper.PanicOnErrorContext(ctx, err)
@@ -235,7 +237,7 @@ func (repository *PurchaseOrder) FindFinishingFactory(ctx context.Context, tx *s
 			&pc.Code,
 			&pc.Name,
 		)
-		helper.PanicError(err)
+		helper.TranslatePostgreError(ctx, err)
 		return pc, nil
 	} else {
 		return pc, errors.New("PO is not found")
@@ -252,7 +254,9 @@ func (repository *PurchaseOrder) FindProductionFactory(ctx context.Context, tx *
 	var pc domain.ProductionFactory
 
 	rows, err := tx.QueryContext(ctx, query, codeId)
-	helper.PanicError(err)
+	if err != nil {
+		helper.TranslatePostgreError(ctx, err)
+	}
 	defer func() {
 		err = rows.Close()
 		helper.PanicOnErrorContext(ctx, err)
@@ -263,7 +267,7 @@ func (repository *PurchaseOrder) FindProductionFactory(ctx context.Context, tx *
 			&pc.Id,
 			&pc.Name,
 		)
-		helper.PanicError(err)
+		helper.TranslatePostgreError(ctx, err)
 		return pc, nil
 	} else {
 		return pc, errors.New("PO is not found")

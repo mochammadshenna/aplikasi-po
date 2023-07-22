@@ -12,11 +12,14 @@ import (
 	"github.com/mochammadshenna/aplikasi-po/controller"
 	"github.com/mochammadshenna/aplikasi-po/repository"
 	"github.com/mochammadshenna/aplikasi-po/service"
-	"github.com/mochammadshenna/aplikasi-po/util/exceptioncode"
 	"github.com/mochammadshenna/aplikasi-po/util/helper"
+	"github.com/mochammadshenna/aplikasi-po/util/logger"
 )
 
 func main() {
+
+	logger.Init()
+
 	router := httprouter.New()
 	validate := validator.New()
 	db := app.NewDB()
@@ -35,7 +38,7 @@ func main() {
 	router.GET("/api/produksi/:id", purchaseController.FindProductionFactory)
 	router.GET("/api/finishing/:id", purchaseController.FindFinsihingFactory)
 
-	router.PanicHandler = exceptioncode.ErrorHandler
+	router.PanicHandler = helper.ErrorHandler
 
 	server := http.Server{
 		Addr:    host,
