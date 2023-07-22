@@ -35,12 +35,10 @@ migrate-prepare:
 	chmod +x ./bin/dbmate
 
 migrate-new:
-	# export APP_ENV=$(env) && 
-	go run cmd/db/main.go new $(name)
+	export APP_ENV=$(env) && go run cmd/db/main.go new $(name)
 
 migrate-up:
-	# export APP_ENV=$(env) && 
-	go run cmd/db/main.go up
+	export APP_ENV=$(env) && go run cmd/db/main.go up
 
 migrate-down:
 	# export APP_ENV=$(env) && 
