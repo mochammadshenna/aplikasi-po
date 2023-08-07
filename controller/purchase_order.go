@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"embed"
+	"html/template"
 	"net/http"
 	"strconv"
 
@@ -9,6 +11,9 @@ import (
 	"github.com/mochammadshenna/aplikasi-po/service"
 	"github.com/mochammadshenna/aplikasi-po/util/helper"
 )
+
+//go:embed templates/*.gohtml
+var templates embed.FS
 
 type PurchaseOrder struct {
 	PurchaseOrderService service.PoService
@@ -21,16 +26,19 @@ func NewPurchaseOrderController(purchaseService service.PoService) PurchaseOrder
 }
 
 func (controller *PurchaseOrder) FindAllPurchaceOrder(writer http.ResponseWriter, request *http.Request, param httprouter.Params) {
-	poResponses, err := controller.PurchaseOrderService.FindAllPurchaseOrder(request.Context())
-	helper.PanicError(err)
+	// poResponses, err := controller.PurchaseOrderService.FindAllPurchaseOrder(request.Context())
+	// helper.PanicError(err)
 
-	webResponse := web.WebResponse{
-		Code:   http.StatusOK,
-		Status: "OK",
-		Data:   poResponses,
-	}
+	var myTemplates = template.Must(template.ParseFS(templates, "templates/*.gohtml"))
+	myTemplates.ExecuteTemplate(writer, "table.gohtml", nil)
 
-	helper.WriteToResponseBody(writer, webResponse)
+	// webResponse := web.WebResponse{
+	// 	Code:   http.StatusOK,
+	// 	Status: "OK",
+	// 	Data:   poResponses,
+	// }
+
+	// helper.WriteToResponseBody(writer, "table.gohtml")
 }
 
 func (controller *PurchaseOrder) FindPurchaceOrderById(writer http.ResponseWriter, request *http.Request, param httprouter.Params) {

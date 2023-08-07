@@ -2,13 +2,11 @@ package helper
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 )
 
 func ReadFromRequestBody(request *http.Request, result interface{}) {
 	decoder := json.NewDecoder(request.Body)
-	fmt.Println(decoder, "================================================================")
 	err := decoder.Decode(result)
 	PanicError(err)
 }
