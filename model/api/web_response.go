@@ -1,4 +1,4 @@
-package web
+package api
 
 type WebResponse struct {
 	Code   int

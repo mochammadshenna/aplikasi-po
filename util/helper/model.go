@@ -1,18 +1,18 @@
 package helper
 
 import (
+	"github.com/mochammadshenna/aplikasi-po/model/api"
 	"github.com/mochammadshenna/aplikasi-po/model/domain"
-	"github.com/mochammadshenna/aplikasi-po/model/web"
 )
 
-func ToSavePurchaseOrderResponse(po domain.PurchaseOrder) web.SavePurchaseOrderResponse {
-	return web.SavePurchaseOrderResponse{
+func ToSavePurchaseOrderResponse(po domain.PurchaseOrder) api.SavePurchaseOrderResponse {
+	return api.SavePurchaseOrderResponse{
 		Success: true,
 	}
 }
 
-func ToUpdatePurchaseOrderResponse(po domain.PurchaseOrder) web.UpdatePurchaseOrderResponse {
-	return web.UpdatePurchaseOrderResponse{
+func ToUpdatePurchaseOrderResponse(po domain.PurchaseOrder) api.UpdatePurchaseOrderResponse {
+	return api.UpdatePurchaseOrderResponse{
 		Success: true,
 	}
 }

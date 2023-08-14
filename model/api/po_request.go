@@ -1,4 +1,4 @@
-package web
+package api
 
 type FindFactoryByIdRequest struct {
 	Id int64 `validate:"required,number"`

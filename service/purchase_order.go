@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/mochammadshenna/aplikasi-po/model/api"
 	"github.com/mochammadshenna/aplikasi-po/model/domain"
-	"github.com/mochammadshenna/aplikasi-po/model/web"
 	"github.com/mochammadshenna/aplikasi-po/repository"
 	"github.com/mochammadshenna/aplikasi-po/util/exceptioncode"
 	"github.com/mochammadshenna/aplikasi-po/util/helper"
@@ -29,7 +29,7 @@ func NewPurchaseOrderService(purchaseRepository repository.PurchaseOrderReposito
 
 }
 
-func (service *PurchaseOrderService) FindAllPurchaseOrder(ctx context.Context) (web.FindAllPurchaceOrderRepsonse, error) {
+func (service *PurchaseOrderService) FindAllPurchaseOrder(ctx context.Context) (api.FindAllPurchaceOrderRepsonse, error) {
 	tx, err := service.DB.Begin()
 	helper.PanicError(err)
 	defer helper.CommitOrRollback(tx)
@@ -39,31 +39,29 @@ func (service *PurchaseOrderService) FindAllPurchaseOrder(ctx context.Context) (
 		logger.Error(ctx, "An error occurred while getting the purchase order data: %v", err)
 	}
 
-	var data web.FindAllPurchaceOrderRepsonse
+	var data api.FindAllPurchaceOrderRepsonse
 
 	for _, po := range pos {
-		data.List = append(data.List, web.FindPurchaseOrderResponse{
+		data.List = append(data.List, api.FindPurchaseOrderResponse{
 			Id:                 po.Id,
 			ProductionFactory:  po.ProductionFactoryName,
 			PICName:            po.PICName,
 			QuantityPO:         po.QuantityPO,
 			QuantityProduction: po.QuantityProduction,
-			// ProductItem:        po.ProductItem,
-			PaymentTerm:      po.PaymentTerm,
-			CreatedAt:        po.CreatedAt.Format(time.RFC3339),
-			ExpiredAt:        po.ExpiredAt.Format(time.RFC3339),
-			UnitItem:         po.UnitItem,
-			Description:      po.Description,
-			Status:           po.Status,
-			FinishingFactory: po.FinishingFactoryName,
+			PaymentTerm:        po.PaymentTerm,
+			CreatedAt:          po.CreatedAt.Format(time.RFC3339),
+			ExpiredAt:          po.ExpiredAt.Format(time.RFC3339),
+			UnitItem:           po.UnitItem,
+			Description:        po.Description,
+			Status:             po.Status,
+			FinishingFactory:   po.FinishingFactoryName,
 		})
-		// res = append(res, data)
 	}
 
 	return data, nil
 }
 
-func (service *PurchaseOrderService) FindPurchaseOrderById(ctx context.Context, request web.FindPurchaseOrderByIdRequest) web.FindPurchaseOrderResponse {
+func (service *PurchaseOrderService) FindPurchaseOrderById(ctx context.Context, request api.FindPurchaseOrderByIdRequest) api.FindPurchaseOrderResponse {
 	tx, err := service.DB.Begin()
 	helper.PanicError(err)
 	defer helper.CommitOrRollback(tx)
@@ -74,26 +72,25 @@ func (service *PurchaseOrderService) FindPurchaseOrderById(ctx context.Context, 
 		panic(exceptioncode.NewNotFoundError(err.Error()))
 	}
 
-	res := web.FindPurchaseOrderResponse{
+	res := api.FindPurchaseOrderResponse{
 		Id:                 po.Id,
 		ProductionFactory:  po.ProductionFactoryName,
 		PICName:            po.PICName,
 		QuantityPO:         po.QuantityPO,
 		QuantityProduction: po.QuantityProduction,
-		// ProductItem:        po.ProductItem,
-		PaymentTerm:      po.PaymentTerm,
-		CreatedAt:        po.CreatedAt.Format(time.RFC3339),
-		ExpiredAt:        po.ExpiredAt.Format(time.RFC3339),
-		UnitItem:         po.UnitItem,
-		Description:      po.Description,
-		Status:           po.Status,
-		FinishingFactory: po.FinishingFactoryName,
+		PaymentTerm:        po.PaymentTerm,
+		CreatedAt:          po.CreatedAt.Format(time.RFC3339),
+		ExpiredAt:          po.ExpiredAt.Format(time.RFC3339),
+		UnitItem:           po.UnitItem,
+		Description:        po.Description,
+		Status:             po.Status,
+		FinishingFactory:   po.FinishingFactoryName,
 	}
 
 	return res
 }
 
-func (service *PurchaseOrderService) SavePurchaseOrder(ctx context.Context, request web.SavePurchaseOrderRequest) (web.SavePurchaseOrderResponse, error) {
+func (service *PurchaseOrderService) SavePurchaseOrder(ctx context.Context, request api.SavePurchaseOrderRequest) (api.SavePurchaseOrderResponse, error) {
 	err := service.Validate.Struct(request)
 	helper.PanicError(err)
 
@@ -112,7 +109,7 @@ func (service *PurchaseOrderService) SavePurchaseOrder(ctx context.Context, requ
 
 }
 
-func (service *PurchaseOrderService) UpdatePurchaseOrder(ctx context.Context, request web.UpdatePurchaseOrderRequest) (res web.UpdatePurchaseOrderResponse, err error) {
+func (service *PurchaseOrderService) UpdatePurchaseOrder(ctx context.Context, request api.UpdatePurchaseOrderRequest) (res api.UpdatePurchaseOrderResponse, err error) {
 	errs := service.Validate.Struct(request)
 	helper.PanicError(errs)
 
@@ -132,7 +129,7 @@ func (service *PurchaseOrderService) UpdatePurchaseOrder(ctx context.Context, re
 	return helper.ToUpdatePurchaseOrderResponse(p), nil
 }
 
-func (service *PurchaseOrderService) DeletePurchaseOrder(ctx context.Context, request web.DeletePurchaseOrderRequest) {
+func (service *PurchaseOrderService) DeletePurchaseOrder(ctx context.Context, request api.DeletePurchaseOrderRequest) {
 	tx, err := service.DB.Begin()
 	helper.PanicError(err)
 	defer helper.CommitOrRollback(tx)
@@ -146,7 +143,7 @@ func (service *PurchaseOrderService) DeletePurchaseOrder(ctx context.Context, re
 	service.PurchaseOrderRepository.DeletePurchaseOrder(ctx, tx, po.Id)
 }
 
-func (service *PurchaseOrderService) FindProductionFactory(ctx context.Context, request web.FindFactoryByIdRequest) web.FindProductionFactoryResponse {
+func (service *PurchaseOrderService) FindProductionFactory(ctx context.Context, request api.FindFactoryByIdRequest) api.FindProductionFactoryResponse {
 	tx, err := service.DB.Begin()
 	helper.PanicError(err)
 	defer helper.CommitOrRollback(tx)
@@ -157,7 +154,7 @@ func (service *PurchaseOrderService) FindProductionFactory(ctx context.Context, 
 		panic(exceptioncode.NewNotFoundError(err.Error()))
 	}
 
-	res := web.FindProductionFactoryResponse{
+	res := api.FindProductionFactoryResponse{
 		Id:   po.Id,
 		Name: po.Name,
 	}
@@ -166,7 +163,7 @@ func (service *PurchaseOrderService) FindProductionFactory(ctx context.Context, 
 	return res
 }
 
-func (service *PurchaseOrderService) FindFinishingFactory(ctx context.Context, request web.FindFactoryByIdRequest) web.FindFinishingFactoryResponse {
+func (service *PurchaseOrderService) FindFinishingFactory(ctx context.Context, request api.FindFactoryByIdRequest) api.FindFinishingFactoryResponse {
 	err := service.Validate.Struct(request)
 	helper.PanicError(err)
 
@@ -180,7 +177,7 @@ func (service *PurchaseOrderService) FindFinishingFactory(ctx context.Context, r
 		panic(exceptioncode.NewNotFoundError(err.Error()))
 	}
 
-	res := web.FindFinishingFactoryResponse{
+	res := api.FindFinishingFactoryResponse{
 		Id:   po.Id,
 		Code: po.Code,
 		Name: po.Name,
