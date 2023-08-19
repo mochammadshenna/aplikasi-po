@@ -36,7 +36,7 @@ func (service *PurchaseOrderService) FindAllPurchaseOrder(ctx context.Context) (
 
 	pos, err := service.PurchaseOrderRepository.FindAll(ctx, tx)
 	if err != nil {
-		logger.Error(ctx, "An error occurred while getting the purchase order data: %v", err)
+		logger.Errorf(ctx, "An error occurred while getting the purchase order data: %v", err)
 	}
 
 	var data api.FindAllPurchaceOrderRepsonse
@@ -119,7 +119,7 @@ func (service *PurchaseOrderService) UpdatePurchaseOrder(ctx context.Context, re
 
 	po, err := service.PurchaseOrderRepository.FindById(ctx, tx, int(request.Id))
 	if err != nil {
-		logger.Error(ctx, "An error occurred while updating the purchase order, error:%+v", err)
+		logger.Errorf(ctx, "An error occurred while updating the purchase order, error:%+v", err)
 		panic(exceptioncode.NewNotFoundError(err.Error()))
 	}
 
@@ -136,7 +136,7 @@ func (service *PurchaseOrderService) DeletePurchaseOrder(ctx context.Context, re
 
 	po, err := service.PurchaseOrderRepository.FindById(ctx, tx, int(request.Id))
 	if err != nil {
-		logger.Error(ctx, "An error occurred while delete the purchase order, error:%+v", err)
+		logger.Errorf(ctx, "An error occurred while delete the purchase order, error:%+v", err)
 		panic(exceptioncode.NewNotFoundError(err.Error()))
 	}
 
@@ -150,7 +150,7 @@ func (service *PurchaseOrderService) FindProductionFactory(ctx context.Context, 
 
 	po, err := service.PurchaseOrderRepository.FindFinishingFactory(ctx, tx, int(request.Id))
 	if err != nil {
-		logger.Error(ctx, "An error occurred while getting the production factory, error:%+v", err)
+		logger.Errorf(ctx, "An error occurred while getting the production factory, error:%+v", err)
 		panic(exceptioncode.NewNotFoundError(err.Error()))
 	}
 
@@ -173,7 +173,7 @@ func (service *PurchaseOrderService) FindFinishingFactory(ctx context.Context, r
 
 	po, err := service.PurchaseOrderRepository.FindFinishingFactory(ctx, tx, int(request.Id))
 	if err != nil {
-		logger.Error(ctx, "An error occurred while getting the finishing factory, error:%+v", err)
+		logger.Errorf(ctx, "An error occurred while getting the finishing factory, error:%+v", err)
 		panic(exceptioncode.NewNotFoundError(err.Error()))
 	}
 

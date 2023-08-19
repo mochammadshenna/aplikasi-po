@@ -51,5 +51,8 @@ build:
 run:
 	go run cmd/main.go
 
+mock:
+	mockery --all
+
 hello:
 	echo "Hello"
