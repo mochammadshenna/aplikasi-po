@@ -1,0 +1,15 @@
+server:
+  host: "0.0.0.0"
+  port: 8080
+
+og:
+  level: "debug" # trace | debug | info | warn | error | fatal | panic
+
+database:
+  host: "localhost"
+  port: 5432
+  dbName: "arbrion"
+  dbNameTest: "arbrion_test"
+  username: "postgres"
+  password: "postgres"
+  sslMode: "disable"

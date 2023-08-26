@@ -2,7 +2,6 @@ package controller
 
 import (
 	"embed"
-	"html/template"
 	"net/http"
 	"strconv"
 
@@ -26,19 +25,19 @@ func NewPurchaseOrderController(purchaseService service.PoService) PurchaseOrder
 }
 
 func (controller *PurchaseOrder) FindAllPurchaceOrder(writer http.ResponseWriter, request *http.Request, param httprouter.Params) {
-	// poResponses, err := controller.PurchaseOrderService.FindAllPurchaseOrder(request.Context())
-	// helper.PanicError(err)
+	poResponses, err := controller.PurchaseOrderService.FindAllPurchaseOrder(request.Context())
+	helper.PanicError(err)
 
-	var myTemplates = template.Must(template.ParseFS(templates, "templates/*.gohtml"))
-	myTemplates.ExecuteTemplate(writer, "table.gohtml", nil)
+	// var myTemplates = template.Must(template.ParseFS(templates, "templates/*.gohtml"))
+	// myTemplates.ExecuteTemplate(writer, "table.gohtml", nil)
 
-	// webResponse := web.WebResponse{
-	// 	Code:   http.StatusOK,
-	// 	Status: "OK",
-	// 	Data:   poResponses,
-	// }
+	webResponse := api.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK",
+		Data:   poResponses,
+	}
 
-	// helper.WriteToResponseBody(writer, "table.gohtml")
+	helper.WriteToResponseBody(writer, webResponse)
 }
 
 func (controller *PurchaseOrder) FindPurchaceOrderById(writer http.ResponseWriter, request *http.Request, param httprouter.Params) {

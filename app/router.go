@@ -15,7 +15,7 @@ func NewRouter(purchaseController controller.PurchaseOrderController) *httproute
 	router.PUT("/api/purchase/:id", purchaseController.UpdatePurchaceOrder)
 	router.DELETE("/api/purchase/:id", purchaseController.DeletePurchaceOrder)
 
-	router.GET("/api/produksi/:id", purchaseController.FindProductionFactory)
+	router.GET("/api/production/:id", purchaseController.FindProductionFactory)
 	router.GET("/api/finishing/:id", purchaseController.FindFinsihingFactory)
 
 	router.PanicHandler = helper.ErrorHandler

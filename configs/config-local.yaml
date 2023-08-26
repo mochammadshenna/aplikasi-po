@@ -1,0 +1,13 @@
+server:
+  host: "0.0.0.0"
+  port: 5000
+
+log:
+  level: "debug" # trace | debug | info | warn | error | fatal | panic
+
+database:
+  host: "localhost"
+  port: 5432
+  dbName: "arbrion"
+  username: "postgres"
+  password: "postgres"

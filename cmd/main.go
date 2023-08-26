@@ -8,6 +8,7 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/mochammadshenna/aplikasi-po/app"
+	config "github.com/mochammadshenna/aplikasi-po/configs"
 	"github.com/mochammadshenna/aplikasi-po/controller"
 	"github.com/mochammadshenna/aplikasi-po/repository"
 	"github.com/mochammadshenna/aplikasi-po/service"
@@ -16,24 +17,24 @@ import (
 )
 
 func main() {
-
+	config.Init(app.App.Environment)
 	logger.Init()
 
 	validate := validator.New()
-	db := app.NewDB()
+	db := app.NewDb()
 
 	purchaseRepository := repository.NewPurchaseRepository()
 	purchaseService := service.NewPurchaseOrderService(purchaseRepository, db, validate)
 	purchaseController := controller.NewPurchaseOrderController(purchaseService)
 	router := app.NewRouter(purchaseController)
 
-	host := "localhost:8080"
+	host := fmt.Sprintf("%s:%d", config.Get().Server.Host, config.Get().Server.Port)
+	fmt.Printf("Server running on host:%d \n", config.Get().Server.Port)
+
 	server := http.Server{
 		Addr:    host,
 		Handler: router,
 	}
-
-	fmt.Printf("Server running on host:%s \n", host)
 
 	err := server.ListenAndServe()
 	helper.PanicError(err)

@@ -148,7 +148,7 @@ func (service *PurchaseOrderService) FindProductionFactory(ctx context.Context, 
 	helper.PanicError(err)
 	defer helper.CommitOrRollback(tx)
 
-	po, err := service.PurchaseOrderRepository.FindFinishingFactory(ctx, tx, int(request.Id))
+	po, err := service.PurchaseOrderRepository.FindProductionFactory(ctx, tx, int(request.Id))
 	if err != nil {
 		logger.Errorf(ctx, "An error occurred while getting the production factory, error:%+v", err)
 		panic(exceptioncode.NewNotFoundError(err.Error()))

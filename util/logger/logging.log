@@ -1,0 +1,71 @@
+current time:2023-08-14 07:42:21.368365053 +0700 WIB m=+0.005277138
+current time:2023-08-22 16:32:01.94360978 +0700 WIB m=+0.006449304
+current time:2023-08-26 15:19:37.931262015 +0700 WIB m=+0.006861232
+current time:2023-08-26 15:20:44.967618472 +0700 WIB m=+0.006669438
+current time:2023-08-26 15:20:55.20740346 +0700 WIB m=+0.006912885
+current time:2023-08-26 15:23:39.595055308 +0700 WIB m=+0.007502375
+current time:2023-08-26 15:27:11.507885821 +0700 WIB m=+0.007080109
+current time:2023-08-26 15:36:05.501344856 +0700 WIB m=+0.006842370
+current time:2023-08-26 15:36:34.469456841 +0700 WIB m=+0.006871508
+current time:2023-08-26 15:38:07.317573766 +0700 WIB m=+0.006772415
+current time:2023-08-26 15:38:31.995943798 +0700 WIB m=+0.006813161
+current time:2023-08-26 15:39:08.049467739 +0700 WIB m=+0.006500318
+current time:2023-08-26 15:39:12.111785457 +0700 WIB m=+0.006688210
+current time:2023-08-26 15:40:20.951038112 +0700 WIB m=+0.006911609
+current time:2023-08-26 15:43:00.645105416 +0700 WIB m=+0.006618645
+current time:2023-08-26 15:54:50.177508296 +0700 WIB m=+0.006809136
+{"timestamp":"2023-08-26T08:54:52Z","message":"Successfully get production factory","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
+current time:2023-08-26 15:55:31.224112462 +0700 WIB m=+0.006474502
+{"timestamp":"2023-08-26T08:55:40Z","message":"Successfully get production factory","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
+current time:2023-08-26 15:56:46.862119067 +0700 WIB m=+0.006793368
+{"timestamp":"2023-08-26T08:56:53Z","message":"Successfully get production factory","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
+current time:2023-08-26 16:03:49.807086384 +0700 WIB m=+0.007291928
+current time:2023-08-26 16:05:05.540978213 +0700 WIB m=+0.007215905
+current time:2023-08-26 16:58:38.926528391 +0700 WIB m=+0.008290757
+{"timestamp":"2023-08-26T09:58:38Z","serviceContext":{},"message":"dial tcp: lookup port=0: no such host","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 16:58:56.57914351 +0700 WIB m=+0.007064342
+{"timestamp":"2023-08-26T09:58:56Z","serviceContext":{},"message":"dial tcp: lookup port=0: no such host","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 17:02:55.537724263 +0700 WIB m=+0.008000492
+{"timestamp":"2023-08-26T10:02:55Z","serviceContext":{},"message":"pq: password authentication failed for user \"posgtres\"","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 17:03:11.289337494 +0700 WIB m=+0.007418075
+{"timestamp":"2023-08-26T10:03:11Z","serviceContext":{},"message":"pq: password authentication failed for user \"posgtres\"","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 17:04:46.819367385 +0700 WIB m=+0.007611632
+{"timestamp":"2023-08-26T10:04:46Z","serviceContext":{},"message":"pq: password authentication failed for user \"posgtres\"","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 17:05:09.173862688 +0700 WIB m=+0.007772614
+{"timestamp":"2023-08-26T10:05:09Z","serviceContext":{},"message":"pq: password authentication failed for user \"posgtres\"","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 17:07:55.702839543 +0700 WIB m=+0.007532866
+{"timestamp":"2023-08-26T10:07:55Z","serviceContext":{},"message":"pq: password authentication failed for user \"posgtres\"","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 17:08:42.25273866 +0700 WIB m=+0.007259632
+current time:2023-08-26 17:09:16.411568978 +0700 WIB m=+0.007355724
+current time:2023-08-26 17:09:54.971129872 +0700 WIB m=+0.007705626
+current time:2023-08-26 17:11:44.285563368 +0700 WIB m=+0.007716715
+current time:2023-08-26 17:12:49.967772595 +0700 WIB m=+0.008303996
+current time:2023-08-26 17:13:20.387608702 +0700 WIB m=+0.007539440
+{"timestamp":"2023-08-26T10:13:20Z","serviceContext":{},"message":"pq: password authentication failed for user \"posgtres\"","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 17:14:16.727194341 +0700 WIB m=+0.007640357
+{"timestamp":"2023-08-26T10:14:16Z","serviceContext":{},"message":"pq: password authentication failed for user \"posgtres\"","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 17:14:37.364978125 +0700 WIB m=+0.007316838
+{"timestamp":"2023-08-26T10:14:37Z","serviceContext":{},"message":"pq: password authentication failed for user \"posgtres\"","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 17:15:03.540440633 +0700 WIB m=+0.007094250
+{"timestamp":"2023-08-26T10:15:03Z","serviceContext":{},"message":"pq: password authentication failed for user \"posgtres\"","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 17:16:01.240124611 +0700 WIB m=+0.007594007
+{"timestamp":"2023-08-26T10:16:01Z","serviceContext":{},"message":"pq: password authentication failed for user \"root\"","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 17:16:25.318666331 +0700 WIB m=+0.007617603
+current time:2023-08-26 17:17:08.205138005 +0700 WIB m=+0.007262887
+{"timestamp":"2023-08-26T10:17:08Z","serviceContext":{},"message":"pq: password authentication failed for user \"posgtres\"","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 17:17:38.362509188 +0700 WIB m=+0.007743652
+{"timestamp":"2023-08-26T10:17:38Z","serviceContext":{},"message":"pq: password authentication failed for user \"posgtres\"","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 17:18:31.230807262 +0700 WIB m=+0.007552004
+{"timestamp":"2023-08-26T10:18:31Z","serviceContext":{},"message":"pq: password authentication failed for user \"posgtres\"","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 17:18:54.094600691 +0700 WIB m=+0.007530208
+{"timestamp":"2023-08-26T10:18:54Z","serviceContext":{},"message":"pq: password authentication failed for user \"posgtres\"","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 17:19:27.383598142 +0700 WIB m=+0.007418760
+{"timestamp":"2023-08-26T10:19:27Z","serviceContext":{},"message":"pq: password authentication failed for user \"posgtres\"","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 17:20:09.21658507 +0700 WIB m=+0.007909123
+current time:2023-08-26 17:20:36.590988265 +0700 WIB m=+0.007287142
+{"timestamp":"2023-08-26T10:20:36Z","serviceContext":{},"message":"pq: password authentication failed for user \"posgtres\"","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-26 17:20:58.964643461 +0700 WIB m=+0.007387503
+current time:2023-08-26 17:21:48.315884215 +0700 WIB m=+0.007054443
+{"timestamp":"2023-08-26T10:21:54Z","message":"Successfully get production factory","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
+current time:2023-08-26 17:23:33.051914164 +0700 WIB m=+0.007161954
+current time:2023-08-26 17:26:46.952067987 +0700 WIB m=+0.007114370
