@@ -1,9 +1,10 @@
-package config
+package configs
 
 import (
 	"log"
 
 	"github.com/fsnotify/fsnotify"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
@@ -36,7 +37,7 @@ type (
 
 var config Config
 
-func Init(env string) {
+func Init() {
 		// if env == "local" {
 		// 	env = "local"
 		// }
@@ -59,6 +60,8 @@ func Init(env string) {
 			viper.Unmarshal(&config)
 		})
 		viper.WatchConfig()
+
+		logrus.Print("Config file read loaded successfully")
 }
 
 

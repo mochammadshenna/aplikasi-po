@@ -1,5 +1,10 @@
 package api
 
+type AuthAdminRequest struct {
+	Email    string `json:"email" validate:"required,email"`
+	Password string `json:"password"`
+}
+
 type FindFactoryByIdRequest struct {
 	Id int64 `validate:"required,number"`
 }

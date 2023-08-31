@@ -8,6 +8,11 @@ func init() {
 	_httpContentTypeValues = newHttpContentTypeValues()
 }
 
+type HttpContentWrapper struct {
+	ApplicationJson      string
+	ApplicationJsonPatch string
+}
+
 type httpContentTypeValues struct {
 	ApplicationJson      string
 	ApplicationJsonPatch string

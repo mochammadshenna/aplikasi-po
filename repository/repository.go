@@ -4,16 +4,18 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/mochammadshenna/aplikasi-po/model/domain"
+	"github.com/mochammadshenna/aplikasi-po/entity"
 )
 
 type PurchaseOrderRepository interface {
-	FindAll(ctx context.Context, tx *sql.Tx) ([]domain.PurchaseOrder, error)
-	FindById(ctx context.Context, tx *sql.Tx, poId int) (domain.PurchaseOrder, error)
-	SavePurchaseOrder(ctx context.Context, tx *sql.Tx, po domain.PurchaseOrder) (domain.PurchaseOrder, error)
-	UpdatePurchaseOrder(ctx context.Context, tx *sql.Tx, po domain.PurchaseOrder, poIds int64) (domain.PurchaseOrder, error)
+	FindAdminByEmail(ctx context.Context, tx *sql.Tx, email string) (entity.Admin, error)
+
+	FindAll(ctx context.Context, tx *sql.Tx) ([]entity.PurchaseOrder, error)
+	FindById(ctx context.Context, tx *sql.Tx, poId int) (entity.PurchaseOrder, error)
+	SavePurchaseOrder(ctx context.Context, tx *sql.Tx, po entity.PurchaseOrder) (entity.PurchaseOrder, error)
+	UpdatePurchaseOrder(ctx context.Context, tx *sql.Tx, po entity.PurchaseOrder, poIds int64) (entity.PurchaseOrder, error)
 	DeletePurchaseOrder(ctx context.Context, tx *sql.Tx, poId int64)
 
-	FindFinishingFactory(ctx context.Context, tx *sql.Tx, codeId int) (domain.FinishingFactory, error)
-	FindProductionFactory(ctx context.Context, tx *sql.Tx, codeId int) (domain.ProductionFactory, error)
+	FindFinishingFactory(ctx context.Context, tx *sql.Tx, codeId int) (entity.FinishingFactory, error)
+	FindProductionFactory(ctx context.Context, tx *sql.Tx, codeId int) (entity.ProductionFactory, error)
 }

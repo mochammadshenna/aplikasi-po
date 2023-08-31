@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"embed"
 	"net/http"
 	"strconv"
 
@@ -9,10 +8,8 @@ import (
 	"github.com/mochammadshenna/aplikasi-po/model/api"
 	"github.com/mochammadshenna/aplikasi-po/service"
 	"github.com/mochammadshenna/aplikasi-po/util/helper"
+	"github.com/mochammadshenna/aplikasi-po/util/httphelper"
 )
-
-//go:embed templates/*.gohtml
-var templates embed.FS
 
 type PurchaseOrder struct {
 	PurchaseOrderService service.PoService
@@ -24,55 +21,51 @@ func NewPurchaseOrderController(purchaseService service.PoService) PurchaseOrder
 	}
 }
 
-func (controller *PurchaseOrder) FindAllPurchaceOrder(writer http.ResponseWriter, request *http.Request, param httprouter.Params) {
-	poResponses, err := controller.PurchaseOrderService.FindAllPurchaseOrder(request.Context())
-	helper.PanicError(err)
+func (controller *PurchaseOrder) Login(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
+	requestData := api.AuthAdminRequest{}
+	httphelper.Read(request, &requestData)
 
-	// var myTemplates = template.Must(template.ParseFS(templates, "templates/*.gohtml"))
-	// myTemplates.ExecuteTemplate(writer, "table.gohtml", nil)
-
-	webResponse := api.WebResponse{
-		Code:   http.StatusOK,
-		Status: "OK",
-		Data:   poResponses,
+	response, errorResponse := controller.PurchaseOrderService.Login(request.Context(), requestData)
+	if errorResponse != nil {
+		httphelper.WriteError(request.Context(), writer, errorResponse)
+		return
 	}
+	httphelper.Write(request.Context(), writer, response)
+}
 
-	helper.WriteToResponseBody(writer, webResponse)
+func (controller *PurchaseOrder) FindAllPurchaceOrder(writer http.ResponseWriter, request *http.Request, param httprouter.Params) {
+	response, err := controller.PurchaseOrderService.FindAllPurchaseOrder(request.Context())
+	if err != nil {
+		httphelper.WriteError(request.Context(), writer, err)
+		return
+	}
+	
+	httphelper.Write(request.Context(), writer, response)
 }
 
 func (controller *PurchaseOrder) FindPurchaceOrderById(writer http.ResponseWriter, request *http.Request, param httprouter.Params) {
 	poById := api.FindPurchaseOrderByIdRequest{}
-
 	poId := param.ByName("id")
 	id, err := strconv.Atoi(poId)
 	helper.PanicError(err)
 
 	poById.Id = int64(id)
 
-	poResponse := controller.PurchaseOrderService.FindPurchaseOrderById(request.Context(), poById)
-	webResponse := api.WebResponse{
-		Code:   http.StatusOK,
-		Status: "OK",
-		Data:   poResponse,
-	}
-
-	helper.WriteToResponseBody(writer, webResponse)
+	response := controller.PurchaseOrderService.FindPurchaseOrderById(request.Context(), poById)
+	httphelper.Write(request.Context(), writer, response)
 }
 
 func (controller *PurchaseOrder) SavePurchaceOrder(writer http.ResponseWriter, request *http.Request, param httprouter.Params) {
 	poSave := api.SavePurchaseOrderRequest{}
 	helper.ReadFromRequestBody(request, poSave)
 
-	poResponse, err := controller.PurchaseOrderService.SavePurchaseOrder(request.Context(), poSave)
-	helper.PanicError(err)
-
-	webResponse := api.WebResponse{
-		Code:   http.StatusOK,
-		Status: "OK",
-		Data:   poResponse,
+	response, err := controller.PurchaseOrderService.SavePurchaseOrder(request.Context(), poSave)
+	if err != nil {
+		httphelper.WriteError(request.Context(), writer, err)
+		return
 	}
 
-	helper.WriteToResponseBody(writer, webResponse)
+	httphelper.Write(request.Context(), writer, response)
 }
 
 func (controller *PurchaseOrder) UpdatePurchaceOrder(writer http.ResponseWriter, request *http.Request, param httprouter.Params) {
@@ -85,16 +78,13 @@ func (controller *PurchaseOrder) UpdatePurchaceOrder(writer http.ResponseWriter,
 
 	poUpdate.Id = int64(id)
 
-	poResponse, err := controller.PurchaseOrderService.UpdatePurchaseOrder(request.Context(), poUpdate)
-	helper.PanicError(err)
-
-	webResponse := api.WebResponse{
-		Code:   http.StatusOK,
-		Status: "OK",
-		Data:   poResponse,
+	response, err := controller.PurchaseOrderService.UpdatePurchaseOrder(request.Context(), poUpdate)
+	if err != nil {
+		httphelper.WriteError(request.Context(), writer, err)
+		return
 	}
 
-	helper.WriteToResponseBody(writer, webResponse)
+	httphelper.Write(request.Context(), writer, response)
 }
 
 func (controller *PurchaseOrder) DeletePurchaceOrder(writer http.ResponseWriter, request *http.Request, param httprouter.Params) {
@@ -125,31 +115,20 @@ func (controller *PurchaseOrder) FindProductionFactory(writer http.ResponseWrite
 
 	poById.Id = int64(id)
 
-	poResponse := controller.PurchaseOrderService.FindProductionFactory(request.Context(), poById)
-	webResponse := api.WebResponse{
-		Code:   http.StatusOK,
-		Status: "OK",
-		Data:   poResponse,
-	}
+	response := controller.PurchaseOrderService.FindProductionFactory(request.Context(), poById)
 
-	helper.WriteToResponseBody(writer, webResponse)
+	httphelper.Write(request.Context(), writer, response)
 }
 
 func (controller *PurchaseOrder) FindFinsihingFactory(writer http.ResponseWriter, request *http.Request, param httprouter.Params) {
 	poById := api.FindFactoryByIdRequest{}
-
 	poId := param.ByName("id")
 	id, err := strconv.Atoi(poId)
 	helper.PanicError(err)
 
 	poById.Id = int64(id)
 
-	poResponse := controller.PurchaseOrderService.FindFinishingFactory(request.Context(), poById)
-	webResponse := api.WebResponse{
-		Code:   http.StatusOK,
-		Status: "OK",
-		Data:   poResponse,
-	}
+	response := controller.PurchaseOrderService.FindFinishingFactory(request.Context(), poById)
 
-	helper.WriteToResponseBody(writer, webResponse)
+	httphelper.Write(request.Context(), writer, response)
 }

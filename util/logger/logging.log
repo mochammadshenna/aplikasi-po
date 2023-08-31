@@ -69,3 +69,45 @@ current time:2023-08-26 17:21:48.315884215 +0700 WIB m=+0.007054443
 {"timestamp":"2023-08-26T10:21:54Z","message":"Successfully get production factory","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
 current time:2023-08-26 17:23:33.051914164 +0700 WIB m=+0.007161954
 current time:2023-08-26 17:26:46.952067987 +0700 WIB m=+0.007114370
+current time:2023-08-27 17:51:53.315989795 +0700 WIB m=+0.008001167
+current time:2023-08-27 17:52:07.426424867 +0700 WIB m=+0.007548696
+current time:2023-08-27 17:52:24.113538324 +0700 WIB m=+0.006823264
+current time:2023-08-31 10:16:19.479839391 +0700 WIB m=+0.030715313
+{"timestamp":"2023-08-31T03:16:19Z","serviceContext":{},"message":"pq: database \"arbrion\" does not exist","severity":"CRITICAL","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":214,"functionName":"Fatal"}}}
+current time:2023-08-31 10:16:49.087372531 +0700 WIB m=+0.014198011
+current time:2023-08-31 11:07:54.644300445 +0700 WIB m=+0.006963256
+current time:2023-08-31 11:07:57.058486285 +0700 WIB m=+0.007424677
+current time:2023-08-31 11:40:15.233996636 +0700 WIB m=+0.007953942
+current time:2023-08-31 11:45:02.031839551 +0700 WIB m=+0.101106235
+current time:2023-08-31 11:59:14.259675878 +0700 WIB m=+0.057834675
+current time:2023-08-31 12:03:11.72561937 +0700 WIB m=+0.007885351
+current time:2023-08-31 13:03:58.48902871 +0700 WIB m=+0.008398225
+current time:2023-08-31 13:21:47.883233124 +0700 WIB m=+0.007627672
+{"timestamp":"2023-08-31T06:21:53Z","serviceContext":{},"message":"sql: Scan error on column index 5, name \"product_item\": json: cannot unmarshal object into Go value of type entity.ProductItems","severity":"ERROR","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":196,"functionName":"Error"}}}
+{"timestamp":"2023-08-31T06:23:58Z","message":"request: {Email:indria@yopmail.com Password:admin}","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
+{"timestamp":"2023-08-31T06:24:17Z","message":"request: {Email:indria@yopmail.com Password:admin}","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
+current time:2023-08-31 13:26:17.20210275 +0700 WIB m=+0.011113683
+{"timestamp":"2023-08-31T06:26:20Z","serviceContext":{},"message":"sql: Scan error on column index 5, name \"product_item\": json: cannot unmarshal object into Go value of type entity.ProductItems","severity":"ERROR","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":196,"functionName":"Error"}}}
+current time:2023-08-31 13:27:37.327910208 +0700 WIB m=+0.012633114
+{"timestamp":"2023-08-31T06:27:48Z","serviceContext":{},"message":"sql: Scan error on column index 5, name \"product_item\": json: cannot unmarshal object into Go value of type entity.ProductItems","severity":"ERROR","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":196,"functionName":"Error"}}}
+{"timestamp":"2023-08-31T06:29:12Z","serviceContext":{},"message":"sql: Scan error on column index 5, name \"product_item\": json: cannot unmarshal object into Go value of type entity.ProductItems","severity":"ERROR","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":196,"functionName":"Error"}}}
+{"timestamp":"2023-08-31T06:29:12Z","serviceContext":{},"message":"sql: Scan error on column index 5, name \"product_item\": json: cannot unmarshal object into Go value of type entity.ProductItems","severity":"ERROR","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":196,"functionName":"Error"}}}
+current time:2023-08-31 13:46:53.649906838 +0700 WIB m=+0.008451050
+{"timestamp":"2023-08-31T06:49:59Z","message":"Successfully get finishing factory","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
+{"timestamp":"2023-08-31T06:50:03Z","message":"Successfully get finishing factory","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
+{"timestamp":"2023-08-31T06:50:12Z","message":"Successfully get finishing factory","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
+{"timestamp":"2023-08-31T06:50:26Z","message":"Successfully get production factory","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
+{"timestamp":"2023-08-31T06:50:36Z","message":"Successfully get production factory","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
+{"timestamp":"2023-08-31T06:51:00Z","serviceContext":{},"message":"sql: Scan error on column index 5, name \"product_item\": json: cannot unmarshal object into Go value of type entity.ProductItems","severity":"ERROR","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":196,"functionName":"Error"}}}
+{"timestamp":"2023-08-31T06:51:10Z","serviceContext":{},"message":"sql: Scan error on column index 5, name \"product_item\": json: cannot unmarshal object into Go value of type entity.ProductItems","severity":"ERROR","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":196,"functionName":"Error"}}}
+current time:2023-08-31 13:55:52.233573836 +0700 WIB m=+0.007837381
+{"timestamp":"2023-08-31T06:55:56Z","serviceContext":{},"message":"sql: Scan error on column index 5, name \"product_item\": json: cannot unmarshal object into Go value of type entity.ProductItems","severity":"ERROR","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":196,"functionName":"Error"}}}
+current time:2023-08-31 13:58:11.333759635 +0700 WIB m=+0.007615210
+{"timestamp":"2023-08-31T06:58:17Z","serviceContext":{},"message":"sql: Scan error on column index 5, name \"product_item\": json: cannot unmarshal object into Go value of type entity.ProductItems","severity":"ERROR","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":196,"functionName":"Error"}}}
+current time:2023-08-31 13:59:43.618805744 +0700 WIB m=+0.012914865
+{"timestamp":"2023-08-31T06:59:45Z","serviceContext":{},"message":"sql: Scan error on column index 5, name \"product_item\": json: cannot unmarshal object into Go value of type entity.ProductItems","severity":"ERROR","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null},"reportLocation":{"filePath":"github.com/mochammadshenna/aplikasi-po/util/logger/logger.go","lineNumber":196,"functionName":"Error"}}}
+current time:2023-08-31 14:00:48.186976329 +0700 WIB m=+0.010187154
+current time:2023-08-31 14:28:55.681768055 +0700 WIB m=+0.007247117
+current time:2023-08-31 14:32:40.468927802 +0700 WIB m=+0.007276161
+current time:2023-08-31 14:49:56.575733119 +0700 WIB m=+0.007336386
+{"timestamp":"2023-08-31T07:52:34Z","message":"Successfully get finishing factory","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}

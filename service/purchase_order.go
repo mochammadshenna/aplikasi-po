@@ -6,12 +6,14 @@ import (
 	"time"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/mochammadshenna/aplikasi-po/entity"
 	"github.com/mochammadshenna/aplikasi-po/model/api"
-	"github.com/mochammadshenna/aplikasi-po/model/domain"
 	"github.com/mochammadshenna/aplikasi-po/repository"
+	"github.com/mochammadshenna/aplikasi-po/util/authentication"
 	"github.com/mochammadshenna/aplikasi-po/util/exceptioncode"
 	"github.com/mochammadshenna/aplikasi-po/util/helper"
 	"github.com/mochammadshenna/aplikasi-po/util/logger"
+	"github.com/mochammadshenna/aplikasi-po/util/password"
 )
 
 type PurchaseOrderService struct {
@@ -29,6 +31,31 @@ func NewPurchaseOrderService(purchaseRepository repository.PurchaseOrderReposito
 
 }
 
+func (service *PurchaseOrderService) Login(ctx context.Context, request api.AuthAdminRequest) (api.AuthAdminResponse, error) {
+	err := service.Validate.Struct(request)
+	helper.PanicOnErrorContext(ctx, err)
+	var result api.AuthAdminResponse
+
+	tx, err := service.DB.Begin()
+	helper.PanicOnErrorContext(ctx, err)
+	defer helper.CommitOrRollback(tx)
+
+	dataAdmin, err := service.PurchaseOrderRepository.FindAdminByEmail(ctx, tx, request.Email)
+	if err != nil {
+		return api.AuthAdminResponse{}, api.ErrorResponse{Code: exceptioncode.CodeInvalidCredential, Message: "Incorrect email or password"}
+	}
+
+	err = password.CheckHashPassword(request.Password, dataAdmin.Password)
+	if err != nil {
+		return api.AuthAdminResponse{}, api.ErrorResponse{Code: exceptioncode.CodeInvalidCredential, Message: "Incorrect email or password"}
+	}
+
+	result.Token = authentication.CreateToken(time.Minute*1440, dataAdmin.Id)
+	result.Name = dataAdmin.Name
+	return result, nil
+}
+
+
 func (service *PurchaseOrderService) FindAllPurchaseOrder(ctx context.Context) (api.FindAllPurchaceOrderRepsonse, error) {
 	tx, err := service.DB.Begin()
 	helper.PanicError(err)
@@ -39,18 +66,26 @@ func (service *PurchaseOrderService) FindAllPurchaseOrder(ctx context.Context) (
 		logger.Errorf(ctx, "An error occurred while getting the purchase order data: %v", err)
 	}
 
-	var data api.FindAllPurchaceOrderRepsonse
+	var (
+		data api.FindAllPurchaceOrderRepsonse
+		items []string
+	)
 
 	for _, po := range pos {
+		for _, v := range po.ProductItem{
+			items = append(items, v.Name)
+
+		}
 		data.List = append(data.List, api.FindPurchaseOrderResponse{
 			Id:                 po.Id,
 			ProductionFactory:  po.ProductionFactoryName,
 			PICName:            po.PICName,
+			ProductItem: items,
 			QuantityPO:         po.QuantityPO,
 			QuantityProduction: po.QuantityProduction,
 			PaymentTerm:        po.PaymentTerm,
-			CreatedAt:          po.CreatedAt.Format(time.RFC3339),
-			ExpiredAt:          po.ExpiredAt.Format(time.RFC3339),
+			CreatedAt:          po.CreatedAt.Format("2006-01-02"),
+			ExpiredAt:          po.ExpiredAt.Format("2006-01-02"),
 			UnitItem:           po.UnitItem,
 			Description:        po.Description,
 			Status:             po.Status,
@@ -79,8 +114,8 @@ func (service *PurchaseOrderService) FindPurchaseOrderById(ctx context.Context, 
 		QuantityPO:         po.QuantityPO,
 		QuantityProduction: po.QuantityProduction,
 		PaymentTerm:        po.PaymentTerm,
-		CreatedAt:          po.CreatedAt.Format(time.RFC3339),
-		ExpiredAt:          po.ExpiredAt.Format(time.RFC3339),
+		CreatedAt:          po.CreatedAt.Format("2006-01-02"),
+		ExpiredAt:          po.ExpiredAt.Format("2006-01-02"),
 		UnitItem:           po.UnitItem,
 		Description:        po.Description,
 		Status:             po.Status,
@@ -98,7 +133,7 @@ func (service *PurchaseOrderService) SavePurchaseOrder(ctx context.Context, requ
 	helper.PanicError(err)
 	defer helper.CommitOrRollback(tx)
 
-	po := domain.PurchaseOrder{
+	po := entity.PurchaseOrder{
 		ProductionFactoryName: request.Name,
 	}
 
@@ -129,7 +164,7 @@ func (service *PurchaseOrderService) UpdatePurchaseOrder(ctx context.Context, re
 	return helper.ToUpdatePurchaseOrderResponse(p), nil
 }
 
-func (service *PurchaseOrderService) DeletePurchaseOrder(ctx context.Context, request api.DeletePurchaseOrderRequest) {
+func (service *PurchaseOrderService) DeletePurchaseOrder(ctx context.Context, request api.DeletePurchaseOrderRequest)(api.DeletePurchaseOrderResponse, error) {
 	tx, err := service.DB.Begin()
 	helper.PanicError(err)
 	defer helper.CommitOrRollback(tx)
@@ -141,6 +176,10 @@ func (service *PurchaseOrderService) DeletePurchaseOrder(ctx context.Context, re
 	}
 
 	service.PurchaseOrderRepository.DeletePurchaseOrder(ctx, tx, po.Id)
+
+	return api.DeletePurchaseOrderResponse{
+		Success: true,
+	},nil
 }
 
 func (service *PurchaseOrderService) FindProductionFactory(ctx context.Context, request api.FindFactoryByIdRequest) api.FindProductionFactoryResponse {

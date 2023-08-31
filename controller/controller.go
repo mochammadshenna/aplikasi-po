@@ -7,6 +7,8 @@ import (
 )
 
 type PurchaseOrderController interface {
+	Login(writer http.ResponseWriter, request *http.Request, params httprouter.Params)
+	
 	FindAllPurchaceOrder(writer http.ResponseWriter, request *http.Request, param httprouter.Params)
 	FindPurchaceOrderById(writer http.ResponseWriter, request *http.Request, param httprouter.Params)
 	SavePurchaceOrder(writer http.ResponseWriter, request *http.Request, param httprouter.Params)

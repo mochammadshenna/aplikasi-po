@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"errors"
 
-	"github.com/mochammadshenna/aplikasi-po/model/domain"
+	"github.com/mochammadshenna/aplikasi-po/entity"
 	"github.com/mochammadshenna/aplikasi-po/util/exceptioncode"
 	"github.com/mochammadshenna/aplikasi-po/util/helper"
 )
@@ -17,7 +17,28 @@ func NewPurchaseRepository() PurchaseOrderRepository {
 	return &PurchaseOrder{}
 }
 
-func (repository *PurchaseOrder) FindAll(ctx context.Context, tx *sql.Tx) ([]domain.PurchaseOrder, error) {
+func (repo *PurchaseOrder) FindAdminByEmail(ctx context.Context, tx *sql.Tx, email string) (entity.Admin, error) {
+	query := `SELECT id, name, created_at, updated_at, email, password FROM admins WHERE email = $1`
+	var result entity.Admin
+
+	err := tx.QueryRowContext(ctx, query, email).Scan(
+		&result.Id,
+		&result.Name,
+		&result.CreatedAt,
+		&result.UpdatedAt,
+		&result.Email,
+		&result.Password,
+	)
+
+	if err == sql.ErrNoRows {
+		return result, exceptioncode.ErrEmptyResult
+	}
+	helper.PanicOnErrorContext(ctx, err)
+
+	return result, nil
+}
+
+func (repository *PurchaseOrder) FindAll(ctx context.Context, tx *sql.Tx) ([]entity.PurchaseOrder, error) {
 	query := `SELECT
 				po.id,
 				pf.name,
@@ -37,7 +58,7 @@ func (repository *PurchaseOrder) FindAll(ctx context.Context, tx *sql.Tx) ([]dom
 			LEFT JOIN production_factories pf ON pf.id = po.production_factory
 			LEFT JOIN finishing_factories ff ON ff.id = po.finishing_factory`
 
-	var result []domain.PurchaseOrder
+	var result []entity.PurchaseOrder
 	rows, err := tx.QueryContext(ctx, query)
 	helper.TranslatePostgreError(ctx, err)
 	defer func() {
@@ -45,7 +66,7 @@ func (repository *PurchaseOrder) FindAll(ctx context.Context, tx *sql.Tx) ([]dom
 		helper.PanicOnErrorContext(ctx, err)
 	}()
 	for rows.Next() {
-		var po domain.PurchaseOrder
+		var po entity.PurchaseOrder
 		err := rows.Scan(
 			&po.Id,
 			&po.ProductionFactoryName,
@@ -73,7 +94,7 @@ func (repository *PurchaseOrder) FindAll(ctx context.Context, tx *sql.Tx) ([]dom
 	return result, nil
 }
 
-func (repository *PurchaseOrder) FindById(ctx context.Context, tx *sql.Tx, poId int) (domain.PurchaseOrder, error) {
+func (repository *PurchaseOrder) FindById(ctx context.Context, tx *sql.Tx, poId int) (entity.PurchaseOrder, error) {
 	query := `SELECT
 				po.id,
 				pf.name,
@@ -94,7 +115,7 @@ func (repository *PurchaseOrder) FindById(ctx context.Context, tx *sql.Tx, poId 
 			LEFT JOIN finishing_factories ff ON ff.id = po.finishing_factory
 			WHERE po.id = $1`
 
-	var po domain.PurchaseOrder
+	var po entity.PurchaseOrder
 
 	rows, err := tx.QueryContext(ctx, query, poId)
 	helper.TranslatePostgreError(ctx, err)
@@ -127,7 +148,7 @@ func (repository *PurchaseOrder) FindById(ctx context.Context, tx *sql.Tx, poId 
 	}
 }
 
-func (repository *PurchaseOrder) SavePurchaseOrder(ctx context.Context, tx *sql.Tx, po domain.PurchaseOrder) (domain.PurchaseOrder, error) {
+func (repository *PurchaseOrder) SavePurchaseOrder(ctx context.Context, tx *sql.Tx, po entity.PurchaseOrder) (entity.PurchaseOrder, error) {
 	query := `INSERT INTO purchase_orders(
 					production_factory,
 					pic_name,
@@ -164,7 +185,7 @@ func (repository *PurchaseOrder) SavePurchaseOrder(ctx context.Context, tx *sql.
 	return po, nil
 }
 
-func (repository *PurchaseOrder) UpdatePurchaseOrder(ctx context.Context, tx *sql.Tx, po domain.PurchaseOrder, poIds int64) (domain.PurchaseOrder, error) {
+func (repository *PurchaseOrder) UpdatePurchaseOrder(ctx context.Context, tx *sql.Tx, po entity.PurchaseOrder, poIds int64) (entity.PurchaseOrder, error) {
 	query := `UPDATE purchase_orders
 		SET
 			production_factory=$1,
@@ -212,7 +233,7 @@ func (repository *PurchaseOrder) DeletePurchaseOrder(ctx context.Context, tx *sq
 	helper.TranslatePostgreError(ctx, err)
 }
 
-func (repository *PurchaseOrder) FindFinishingFactory(ctx context.Context, tx *sql.Tx, codeId int) (domain.FinishingFactory, error) {
+func (repository *PurchaseOrder) FindFinishingFactory(ctx context.Context, tx *sql.Tx, codeId int) (entity.FinishingFactory, error) {
 	query := `SELECT
 				id,
 				code,
@@ -220,7 +241,7 @@ func (repository *PurchaseOrder) FindFinishingFactory(ctx context.Context, tx *s
 			FROM finishing_factories
 			WHERE id = $1`
 
-	var pc domain.FinishingFactory
+	var pc entity.FinishingFactory
 
 	rows, err := tx.QueryContext(ctx, query, codeId)
 	if err != nil {
@@ -244,14 +265,14 @@ func (repository *PurchaseOrder) FindFinishingFactory(ctx context.Context, tx *s
 	}
 }
 
-func (repository *PurchaseOrder) FindProductionFactory(ctx context.Context, tx *sql.Tx, codeId int) (domain.ProductionFactory, error) {
+func (repository *PurchaseOrder) FindProductionFactory(ctx context.Context, tx *sql.Tx, codeId int) (entity.ProductionFactory, error) {
 	query := `SELECT
 				id,
 				name
 			FROM production_factories
 			WHERE id = $1`
 
-	var pc domain.ProductionFactory
+	var pc entity.ProductionFactory
 
 	rows, err := tx.QueryContext(ctx, query, codeId)
 	if err != nil {

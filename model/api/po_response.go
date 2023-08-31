@@ -1,7 +1,12 @@
 package api
 
+type AuthAdminResponse struct {
+	Name  string `json:"name"`
+	Token string `json:"token"`
+}
+
 type FindAllPurchaceOrderRepsonse struct {
-	List []FindPurchaseOrderResponse
+	List []FindPurchaseOrderResponse `json:"list"`
 }
 
 type FindPurchaseOrderResponse struct {
@@ -37,4 +42,8 @@ type FindFinishingFactoryResponse struct {
 	Id   int64  `json:"id"`
 	Code string `json:"code"`
 	Name string `json:"name"`
+}
+
+type DeletePurchaseOrderResponse struct {
+	Success bool `json:"success"`
 }

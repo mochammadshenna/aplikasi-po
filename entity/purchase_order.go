@@ -1,4 +1,4 @@
-package domain
+package entity
 
 import (
 	"database/sql/driver"
@@ -81,4 +81,13 @@ type FinishingFactory struct {
 	Id   int64
 	Code string
 	Name string
+}
+
+type Admin struct {
+	Id        int64
+	Name      string
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	Email     string
+	Password  string
 }

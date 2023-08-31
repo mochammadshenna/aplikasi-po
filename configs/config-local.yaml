@@ -1,5 +1,5 @@
 server:
-  host: "0.0.0.0"
+  host: "127.0.0.1"
   port: 5000
 
 log:
@@ -8,6 +8,6 @@ log:
 database:
   host: "localhost"
   port: 5432
-  dbName: "arbrion"
+  dbName: "arbrion_db"
   username: "postgres"
   password: "postgres"

@@ -11,13 +11,14 @@ import (
 	config "github.com/mochammadshenna/aplikasi-po/configs"
 	"github.com/mochammadshenna/aplikasi-po/controller"
 	"github.com/mochammadshenna/aplikasi-po/repository"
+	"github.com/mochammadshenna/aplikasi-po/routes"
 	"github.com/mochammadshenna/aplikasi-po/service"
 	"github.com/mochammadshenna/aplikasi-po/util/helper"
 	"github.com/mochammadshenna/aplikasi-po/util/logger"
 )
 
 func main() {
-	config.Init(app.App.Environment)
+	config.Init()
 	logger.Init()
 
 	validate := validator.New()
@@ -26,7 +27,7 @@ func main() {
 	purchaseRepository := repository.NewPurchaseRepository()
 	purchaseService := service.NewPurchaseOrderService(purchaseRepository, db, validate)
 	purchaseController := controller.NewPurchaseOrderController(purchaseService)
-	router := app.NewRouter(purchaseController)
+	router := routes.NewRouter(purchaseController)
 
 	host := fmt.Sprintf("%s:%d", config.Get().Server.Host, config.Get().Server.Port)
 	fmt.Printf("Server running on host:%d \n", config.Get().Server.Port)
