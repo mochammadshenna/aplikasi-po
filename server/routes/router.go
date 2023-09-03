@@ -9,8 +9,8 @@ import (
 
 func NewRouter(purchaseController controller.PurchaseOrderController) *httprouter.Router {
 	router := httprouter.New()
-	
-	router.POST("/api/login", purchaseController.Login)
+
+	router.POST("/login", purchaseController.Login)
 
 	router.GET("/api/purchase", middleware.JWTAuth(purchaseController.FindAllPurchaceOrder))
 	router.GET("/api/purchase/:id", middleware.JWTAuth(purchaseController.FindPurchaceOrderById))
