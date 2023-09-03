@@ -12,10 +12,10 @@ import (
 )
 
 type PurchaseOrder struct {
-	PurchaseOrderService service.PoService
+	PurchaseOrderService service.Service
 }
 
-func NewPurchaseOrderController(purchaseService service.PoService) PurchaseOrderController {
+func NewPurchaseOrderController(purchaseService service.Service) PurchaseOrderController {
 	return &PurchaseOrder{
 		PurchaseOrderService: purchaseService,
 	}
@@ -39,7 +39,7 @@ func (controller *PurchaseOrder) FindAllPurchaceOrder(writer http.ResponseWriter
 		httphelper.WriteError(request.Context(), writer, err)
 		return
 	}
-	
+
 	httphelper.Write(request.Context(), writer, response)
 }
 

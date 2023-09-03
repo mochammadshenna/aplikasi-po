@@ -10,14 +10,14 @@ import (
 	"github.com/mochammadshenna/aplikasi-po/util/helper"
 )
 
-type PurchaseOrder struct {
+type repository struct {
 }
 
 func NewPurchaseRepository() PurchaseOrderRepository {
-	return &PurchaseOrder{}
+	return &repository{}
 }
 
-func (repo *PurchaseOrder) FindAdminByEmail(ctx context.Context, tx *sql.Tx, email string) (entity.Admin, error) {
+func (repo *repository) FindAdminByEmail(ctx context.Context, tx *sql.Tx, email string) (entity.Admin, error) {
 	query := `SELECT id, name, created_at, updated_at, email, password FROM admins WHERE email = $1`
 	var result entity.Admin
 
@@ -38,7 +38,7 @@ func (repo *PurchaseOrder) FindAdminByEmail(ctx context.Context, tx *sql.Tx, ema
 	return result, nil
 }
 
-func (repository *PurchaseOrder) FindAll(ctx context.Context, tx *sql.Tx) ([]entity.PurchaseOrder, error) {
+func (repository *repository) FindAll(ctx context.Context, tx *sql.Tx) ([]entity.PurchaseOrder, error) {
 	query := `SELECT
 				po.id,
 				pf.name,
@@ -94,7 +94,7 @@ func (repository *PurchaseOrder) FindAll(ctx context.Context, tx *sql.Tx) ([]ent
 	return result, nil
 }
 
-func (repository *PurchaseOrder) FindById(ctx context.Context, tx *sql.Tx, poId int) (entity.PurchaseOrder, error) {
+func (repository *repository) FindById(ctx context.Context, tx *sql.Tx, poId int) (entity.PurchaseOrder, error) {
 	query := `SELECT
 				po.id,
 				pf.name,
@@ -148,7 +148,7 @@ func (repository *PurchaseOrder) FindById(ctx context.Context, tx *sql.Tx, poId 
 	}
 }
 
-func (repository *PurchaseOrder) SavePurchaseOrder(ctx context.Context, tx *sql.Tx, po entity.PurchaseOrder) (entity.PurchaseOrder, error) {
+func (repository *repository) SavePurchaseOrder(ctx context.Context, tx *sql.Tx, po entity.PurchaseOrder) (entity.PurchaseOrder, error) {
 	query := `INSERT INTO purchase_orders(
 					production_factory,
 					pic_name,
@@ -185,7 +185,7 @@ func (repository *PurchaseOrder) SavePurchaseOrder(ctx context.Context, tx *sql.
 	return po, nil
 }
 
-func (repository *PurchaseOrder) UpdatePurchaseOrder(ctx context.Context, tx *sql.Tx, po entity.PurchaseOrder, poIds int64) (entity.PurchaseOrder, error) {
+func (repository *repository) UpdatePurchaseOrder(ctx context.Context, tx *sql.Tx, po entity.PurchaseOrder, poIds int64) (entity.PurchaseOrder, error) {
 	query := `UPDATE purchase_orders
 		SET
 			production_factory=$1,
@@ -226,14 +226,14 @@ func (repository *PurchaseOrder) UpdatePurchaseOrder(ctx context.Context, tx *sq
 	return po, nil
 }
 
-func (repository *PurchaseOrder) DeletePurchaseOrder(ctx context.Context, tx *sql.Tx, poId int64) {
+func (repository *repository) DeletePurchaseOrder(ctx context.Context, tx *sql.Tx, poId int64) {
 	sql := "DELETE FROM purchase_orders WHERE id = $1"
 
 	_, err := tx.ExecContext(ctx, sql, poId)
 	helper.TranslatePostgreError(ctx, err)
 }
 
-func (repository *PurchaseOrder) FindFinishingFactory(ctx context.Context, tx *sql.Tx, codeId int) (entity.FinishingFactory, error) {
+func (repository *repository) FindFinishingFactory(ctx context.Context, tx *sql.Tx, codeId int) (entity.FinishingFactory, error) {
 	query := `SELECT
 				id,
 				code,
@@ -265,7 +265,7 @@ func (repository *PurchaseOrder) FindFinishingFactory(ctx context.Context, tx *s
 	}
 }
 
-func (repository *PurchaseOrder) FindProductionFactory(ctx context.Context, tx *sql.Tx, codeId int) (entity.ProductionFactory, error) {
+func (repository *repository) FindProductionFactory(ctx context.Context, tx *sql.Tx, codeId int) (entity.ProductionFactory, error) {
 	query := `SELECT
 				id,
 				name

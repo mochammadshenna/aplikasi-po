@@ -60,4 +60,6 @@ Arbrion
 
 ## API Documentation
 
+[ERD Arbrion](https://dbdiagram.io/d/64f4613402bd1c4a5edf7d61)
+
 [Arbrion Workspace Postman](https://documenter.getpostman.com/view/18476954/2s9Y5bR2Dz)

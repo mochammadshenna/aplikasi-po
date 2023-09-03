@@ -22,19 +22,18 @@ type PurchaseOrderService struct {
 	Validate                *validator.Validate
 }
 
-func NewPurchaseOrderService(purchaseRepository repository.PurchaseOrderRepository, DB *sql.DB, validate *validator.Validate) PoService {
+func NewPurchaseOrderService(purchaseRepository repository.PurchaseOrderRepository, DB *sql.DB, validate *validator.Validate) Service {
 	return &PurchaseOrderService{
 		PurchaseOrderRepository: purchaseRepository,
 		DB:                      DB,
 		Validate:                validate,
 	}
-
 }
 
 func (service *PurchaseOrderService) Login(ctx context.Context, request api.AuthAdminRequest) (api.AuthAdminResponse, error) {
 	err := service.Validate.Struct(request)
 	helper.PanicOnErrorContext(ctx, err)
-	var result api.AuthAdminResponse
+	var result = api.AuthAdminResponse{}
 
 	tx, err := service.DB.Begin()
 	helper.PanicOnErrorContext(ctx, err)
@@ -55,7 +54,6 @@ func (service *PurchaseOrderService) Login(ctx context.Context, request api.Auth
 	return result, nil
 }
 
-
 func (service *PurchaseOrderService) FindAllPurchaseOrder(ctx context.Context) (api.FindAllPurchaceOrderRepsonse, error) {
 	tx, err := service.DB.Begin()
 	helper.PanicError(err)
@@ -67,12 +65,12 @@ func (service *PurchaseOrderService) FindAllPurchaseOrder(ctx context.Context) (
 	}
 
 	var (
-		data api.FindAllPurchaceOrderRepsonse
+		data  = api.FindAllPurchaceOrderRepsonse{}
 		items []string
 	)
 
 	for _, po := range pos {
-		for _, v := range po.ProductItem{
+		for _, v := range po.ProductItem {
 			items = append(items, v.Name)
 
 		}
@@ -80,7 +78,7 @@ func (service *PurchaseOrderService) FindAllPurchaseOrder(ctx context.Context) (
 			Id:                 po.Id,
 			ProductionFactory:  po.ProductionFactoryName,
 			PICName:            po.PICName,
-			ProductItem: items,
+			ProductItem:        items,
 			QuantityPO:         po.QuantityPO,
 			QuantityProduction: po.QuantityProduction,
 			PaymentTerm:        po.PaymentTerm,
@@ -137,10 +135,12 @@ func (service *PurchaseOrderService) SavePurchaseOrder(ctx context.Context, requ
 		ProductionFactoryName: request.Name,
 	}
 
-	p, err := service.PurchaseOrderRepository.SavePurchaseOrder(ctx, tx, po)
+	_, err = service.PurchaseOrderRepository.SavePurchaseOrder(ctx, tx, po)
 	helper.PanicOnErrorContext(ctx, err)
 
-	return helper.ToSavePurchaseOrderResponse(p), nil
+	return api.SavePurchaseOrderResponse{
+		Success: true,
+	}, nil
 
 }
 
@@ -158,13 +158,15 @@ func (service *PurchaseOrderService) UpdatePurchaseOrder(ctx context.Context, re
 		panic(exceptioncode.NewNotFoundError(err.Error()))
 	}
 
-	p, err := service.PurchaseOrderRepository.UpdatePurchaseOrder(ctx, tx, po, request.Id)
+	_, err = service.PurchaseOrderRepository.UpdatePurchaseOrder(ctx, tx, po, request.Id)
 	helper.PanicError(err)
 
-	return helper.ToUpdatePurchaseOrderResponse(p), nil
+	return api.UpdatePurchaseOrderResponse{
+		Success: true,
+	}, nil
 }
 
-func (service *PurchaseOrderService) DeletePurchaseOrder(ctx context.Context, request api.DeletePurchaseOrderRequest)(api.DeletePurchaseOrderResponse, error) {
+func (service *PurchaseOrderService) DeletePurchaseOrder(ctx context.Context, request api.DeletePurchaseOrderRequest) (api.DeletePurchaseOrderResponse, error) {
 	tx, err := service.DB.Begin()
 	helper.PanicError(err)
 	defer helper.CommitOrRollback(tx)
@@ -179,7 +181,7 @@ func (service *PurchaseOrderService) DeletePurchaseOrder(ctx context.Context, re
 
 	return api.DeletePurchaseOrderResponse{
 		Success: true,
-	},nil
+	}, nil
 }
 
 func (service *PurchaseOrderService) FindProductionFactory(ctx context.Context, request api.FindFactoryByIdRequest) api.FindProductionFactoryResponse {

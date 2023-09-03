@@ -1,7 +1,7 @@
 -- migrate:up
 CREATE TABLE production_factories(
 	id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-	name varchar
+	name varchar(50)
 );
 
 -- migrate:down

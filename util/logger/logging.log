@@ -111,3 +111,18 @@ current time:2023-08-31 14:28:55.681768055 +0700 WIB m=+0.007247117
 current time:2023-08-31 14:32:40.468927802 +0700 WIB m=+0.007276161
 current time:2023-08-31 14:49:56.575733119 +0700 WIB m=+0.007336386
 {"timestamp":"2023-08-31T07:52:34Z","message":"Successfully get finishing factory","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
+current time:2023-09-03 17:48:12.772202547 +0700 WIB m=+0.017455716
+current time:2023-09-03 17:52:32.024481735 +0700 WIB m=+0.007001820
+current time:2023-09-03 17:54:00.279273986 +0700 WIB m=+0.007469253
+current time:2023-09-03 17:54:49.112541839 +0700 WIB m=+0.006990956
+current time:2023-09-03 17:55:37.029844139 +0700 WIB m=+0.008153978
+current time:2023-09-03 17:56:11.863983614 +0700 WIB m=+0.008438076
+current time:2023-09-03 18:29:17.056346339 +0700 WIB m=+0.008188596
+{"timestamp":"2023-09-03T11:29:20Z","message":"request: {Email:indria@yopmail.com Password:admin}","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
+current time:2023-09-03 18:31:57.374558312 +0700 WIB m=+0.007674186
+{"timestamp":"2023-09-03T11:32:02Z","message":"request: {Email:indria@yopmail.com Password:admin}","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
+current time:2023-09-03 18:44:49.487872049 +0700 WIB m=+0.007685409
+{"timestamp":"2023-09-03T11:44:55Z","message":"request: {Email:indria@yopmail.com Password:admin}","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
+{"timestamp":"2023-09-03T12:00:27Z","message":"Successfully get production factory","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
+{"timestamp":"2023-09-03T12:00:29Z","message":"Successfully get finishing factory","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}
+{"timestamp":"2023-09-03T12:00:32Z","message":"Successfully get production factory","severity":"INFO","context":{"data":{"platform":null,"platformType":null,"requestId":null,"version":null}}}

@@ -1,1 +1,43 @@
+###
+POST http://localhost:5000/api/login?email=indria@yopmail.com&password=admin
+
+###
+GET http://localhost:5000/api/purchase
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE2OTM4Mjc4OTYsImlhdCI6MTY5Mzc0MTQ5Nn0.F3IqaGR8xcYBrF5mNnF4pvpRaUQARsQErMbmsC77GIM
+
+
+###
+GET http://localhost:5000/api/purchase/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE2OTM4Mjc4OTYsImlhdCI6MTY5Mzc0MTQ5Nn0.F3IqaGR8xcYBrF5mNnF4pvpRaUQARsQErMbmsC77GIM
+
+###
+POST http://localhost:5000/api/purchase
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE2OTM4Mjc4OTYsImlhdCI6MTY5Mzc0MTQ5Nn0.F3IqaGR8xcYBrF5mNnF4pvpRaUQARsQErMbmsC77GIM
+
+
+###
+PUT http://localhost:5000/api/purchase/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE2OTM4Mjc4OTYsImlhdCI6MTY5Mzc0MTQ5Nn0.F3IqaGR8xcYBrF5mNnF4pvpRaUQARsQErMbmsC77GIM
+
+
+
+###
+DELETE  http://localhost:5000/api/purchase/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE2OTM4Mjc4OTYsImlhdCI6MTY5Mzc0MTQ5Nn0.F3IqaGR8xcYBrF5mNnF4pvpRaUQARsQErMbmsC77GIM
+
+
+###
 GET http://localhost:5000/api/production/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE2OTM4Mjc4OTYsImlhdCI6MTY5Mzc0MTQ5Nn0.F3IqaGR8xcYBrF5mNnF4pvpRaUQARsQErMbmsC77GIM
+
+
+###
+GET http://localhost:5000/api/finishing/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE2OTM4Mjc4OTYsImlhdCI6MTY5Mzc0MTQ5Nn0.F3IqaGR8xcYBrF5mNnF4pvpRaUQARsQErMbmsC77GIM
