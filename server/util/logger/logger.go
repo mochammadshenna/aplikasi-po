@@ -23,7 +23,7 @@ func Init() {
 	lf = newLoggerField()
 
 	Logger.SetFormatter(stackdriver.NewFormatter(
-		stackdriver.WithStackSkip("github.com/pintarnya/pintarnya-kerja-backend/internal/util/logger")),
+		stackdriver.WithStackSkip("github.com/mochammadshenna/aplikasi-po/util/logger")),
 	)
 
 	logPath := "util/logger/logging.log"
@@ -41,6 +41,8 @@ func Init() {
 
 	mw := io.MultiWriter(os.Stdout, lumberjackLogger)
 	Logger.SetOutput(mw)
+
+	fmt.Println("Logger dipanggil")
 
 	/**
 	* If the logger save on file and watcher it
