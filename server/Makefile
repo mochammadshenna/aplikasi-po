@@ -1,4 +1,3 @@
-
 migrate_version?=v1.14.0 # version reference https://github.com/amacneil/dbmate/releases/
 migrate_platform?=linux
 # options:
