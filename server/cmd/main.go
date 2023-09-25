@@ -13,12 +13,13 @@ import (
 	"github.com/mochammadshenna/aplikasi-po/repository"
 	"github.com/mochammadshenna/aplikasi-po/routes"
 	"github.com/mochammadshenna/aplikasi-po/service"
+	"github.com/mochammadshenna/aplikasi-po/state"
 	"github.com/mochammadshenna/aplikasi-po/util/helper"
 	"github.com/mochammadshenna/aplikasi-po/util/logger"
 )
 
 func main() {
-	config.Init()
+	config.Init(state.App.Environment)
 	logger.Init()
 
 	validate := validator.New()

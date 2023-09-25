@@ -8,13 +8,11 @@ import (
 	"github.com/spf13/viper"
 )
 
-
-
 type (
 	Config struct {
-		Server ServerConfig
-		Database    DatabaseConfig
-		Log         LogConfig
+		Server   ServerConfig
+		Database DatabaseConfig
+		Log      LogConfig
 	}
 
 	ServerConfig struct {
@@ -23,11 +21,11 @@ type (
 	}
 
 	DatabaseConfig struct {
-		Host                string
-		Port                int
-		DbName              string
-		Username            string
-		Password            string
+		Host     string
+		Port     int
+		DbName   string
+		Username string
+		Password string
 	}
 
 	LogConfig struct {
@@ -37,35 +35,32 @@ type (
 
 var config Config
 
-func Init() {
-		// if env == "local" {
-		// 	env = "local"
-		// }
+func Init(env string) {
+	if env == "local" {
+		env = "local"
+	}
 
-		viper.AddConfigPath("configs/")
-		viper.SetConfigName("config-local")
-		viper.SetConfigType("yaml")
+	viper.AddConfigPath("configs/")
+	viper.SetConfigName("config-local")
+	viper.SetConfigType("yaml")
 
-		// get application config
-		err := viper.ReadInConfig()
-		panicOnError(err)
+	// get application config
+	err := viper.ReadInConfig()
+	panicOnError(err)
 
-		err = viper.Unmarshal(&config)
-		panicOnError(err)
+	err = viper.Unmarshal(&config)
+	panicOnError(err)
 
-		err = viper.Unmarshal(&config)
-		panicOnError(err)
+	err = viper.Unmarshal(&config)
+	panicOnError(err)
 
-		viper.OnConfigChange(func(e fsnotify.Event) {
-			viper.Unmarshal(&config)
-		})
-		viper.WatchConfig()
+	viper.OnConfigChange(func(e fsnotify.Event) {
+		viper.Unmarshal(&config)
+	})
+	viper.WatchConfig()
 
-		logrus.Print("Config file read loaded successfully")
+	logrus.Print("Config file read loaded successfully")
 }
-
-
-
 
 func Get() Config {
 	return config
