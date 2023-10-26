@@ -24,7 +24,6 @@ func NewPurchaseOrderController(purchaseService service.Service) PurchaseOrderCo
 func (controller *PurchaseOrder) Login(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
 	requestData := api.AuthAdminRequest{}
 	httphelper.Read(request, &requestData)
-
 	response, errorResponse := controller.PurchaseOrderService.Login(request.Context(), requestData)
 	if errorResponse != nil {
 		httphelper.WriteError(request.Context(), writer, errorResponse)
