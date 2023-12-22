@@ -7,8 +7,8 @@ import (
 	"time"
 
 	config "github.com/mochammadshenna/aplikasi-po/configs"
-	"github.com/mochammadshenna/aplikasi-po/util/helper"
-	"github.com/mochammadshenna/aplikasi-po/util/logger"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/helper"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/logger"
 )
 
 func NewDb() *sql.DB {
@@ -20,13 +20,13 @@ func newDb(dbName string) *sql.DB {
 	var dbConfig = config.Get().Database
 
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+"password=%s dbname=%s",
-		dbConfig.Host, 
-		dbConfig.Port, 
-		dbConfig.Username, 
-		dbConfig.Password, 
+		dbConfig.Host,
+		dbConfig.Port,
+		dbConfig.Username,
+		dbConfig.Password,
 		dbName,
 	)
-	
+
 	db, err := sql.Open("postgres", psqlInfo)
 	helper.PanicError(err)
 	if err = db.Ping(); err != nil {

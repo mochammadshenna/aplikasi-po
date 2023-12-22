@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/mochammadshenna/aplikasi-po/util/authentication"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/authentication"
 )
 
 // JWTAuth get token from header "Authorization" with bearer format

@@ -6,14 +6,14 @@ import (
 	"time"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/mochammadshenna/aplikasi-po/entity"
-	"github.com/mochammadshenna/aplikasi-po/model/api"
-	"github.com/mochammadshenna/aplikasi-po/repository"
-	"github.com/mochammadshenna/aplikasi-po/util/authentication"
-	"github.com/mochammadshenna/aplikasi-po/util/exceptioncode"
-	"github.com/mochammadshenna/aplikasi-po/util/helper"
-	"github.com/mochammadshenna/aplikasi-po/util/logger"
-	"github.com/mochammadshenna/aplikasi-po/util/password"
+	"github.com/mochammadshenna/aplikasi-po/internal/entity"
+	"github.com/mochammadshenna/aplikasi-po/internal/model/api"
+	"github.com/mochammadshenna/aplikasi-po/internal/repository"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/authentication"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/exceptioncode"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/helper"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/logger"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/password"
 )
 
 type PurchaseOrderService struct {

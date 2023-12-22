@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/mochammadshenna/aplikasi-po/entity"
+	"github.com/mochammadshenna/aplikasi-po/internal/entity"
 )
 
 type PurchaseOrderRepository interface {

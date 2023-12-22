@@ -5,9 +5,9 @@ import (
 	"database/sql"
 	"errors"
 
-	"github.com/mochammadshenna/aplikasi-po/entity"
-	"github.com/mochammadshenna/aplikasi-po/util/exceptioncode"
-	"github.com/mochammadshenna/aplikasi-po/util/helper"
+	"github.com/mochammadshenna/aplikasi-po/internal/entity"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/exceptioncode"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/helper"
 )
 
 type repository struct {

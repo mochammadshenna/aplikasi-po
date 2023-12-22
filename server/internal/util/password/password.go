@@ -1,7 +1,7 @@
 package password
 
 import (
-	"github.com/mochammadshenna/aplikasi-po/util/helper"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/helper"
 	"golang.org/x/crypto/bcrypt"
 )
 

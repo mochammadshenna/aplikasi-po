@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/go-playground/validator"
-	"github.com/mochammadshenna/aplikasi-po/model/api"
-	"github.com/mochammadshenna/aplikasi-po/util/exceptioncode"
+	"github.com/mochammadshenna/aplikasi-po/internal/model/api"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/exceptioncode"
 )
 
 func ErrorHandler(writer http.ResponseWriter, request *http.Request, err interface{}) {

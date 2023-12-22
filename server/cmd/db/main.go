@@ -9,7 +9,7 @@ import (
 	"github.com/amacneil/dbmate/pkg/dbmate"
 	_ "github.com/amacneil/dbmate/pkg/driver/postgres"
 	config "github.com/mochammadshenna/aplikasi-po/configs"
-	"github.com/mochammadshenna/aplikasi-po/util/helper"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/helper"
 	"github.com/urfave/cli/v2"
 )
 
@@ -110,12 +110,12 @@ func action(f func(*dbmate.DB, *cli.Context) error) cli.ActionFunc {
 	dbConfig := config.Get().Database
 	return func(c *cli.Context) error {
 		link := fmt.Sprintf("host=%s port=%d user=%s "+" password=%s dbname=%s",
-		dbConfig.Host, 
-		dbConfig.Port, 
-		dbConfig.Username, 
-		dbConfig.Password, 
-		dbName,
-	)
+			dbConfig.Host,
+			dbConfig.Port,
+			dbConfig.Username,
+			dbConfig.Password,
+			dbName,
+		)
 
 		u, err := url.Parse(link)
 		helper.PanicError(err)

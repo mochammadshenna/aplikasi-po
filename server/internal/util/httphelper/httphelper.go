@@ -14,11 +14,11 @@ import (
 	"time"
 
 	"github.com/gorilla/schema"
-	"github.com/mochammadshenna/aplikasi-po/model/api"
-	"github.com/mochammadshenna/aplikasi-po/state"
-	"github.com/mochammadshenna/aplikasi-po/util/exceptioncode"
-	"github.com/mochammadshenna/aplikasi-po/util/helper"
-	"github.com/mochammadshenna/aplikasi-po/util/logger"
+	"github.com/mochammadshenna/aplikasi-po/internal/model/api"
+	"github.com/mochammadshenna/aplikasi-po/internal/state"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/exceptioncode"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/helper"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/logger"
 )
 
 var Decoder = schema.NewDecoder()

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import Form from '../organism/Form';
 import { toast } from 'react-toastify';
+import Form from '../organism/Form';
 
 export default function LoginPage() {
   let navigate = useNavigate();
@@ -14,7 +14,7 @@ export default function LoginPage() {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-       [name]: value,
+      [name]: value,
     });
   }
 
@@ -34,12 +34,12 @@ export default function LoginPage() {
         navigate("/");
         toast.success("Login success!");
       } else {
-        const error = await response.json();
-        throw {error};
+        // const error = await response.json();
+        // throw {error};
       };
     } catch (error) {
-      toast.error(error.message);
-      console.log(error);
+      // toast.error(error.message);
+      // console.log(error);
     }
   }
 
@@ -57,7 +57,7 @@ export default function LoginPage() {
                   <Form
                     buttonText="Sign in"
                     formData={formData}
-                    onFormDataChange={handleFormDataChange} 
+                    onFormDataChange={handleFormDataChange}
                     onFormSubmit={handleFormSubmit} />
                 </div>
               </div>

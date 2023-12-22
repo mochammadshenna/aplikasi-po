@@ -2,9 +2,9 @@ package routes
 
 import (
 	"github.com/julienschmidt/httprouter"
-	"github.com/mochammadshenna/aplikasi-po/controller"
-	"github.com/mochammadshenna/aplikasi-po/middleware"
-	"github.com/mochammadshenna/aplikasi-po/util/helper"
+	"github.com/mochammadshenna/aplikasi-po/internal/app/middleware"
+	"github.com/mochammadshenna/aplikasi-po/internal/controller"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/helper"
 )
 
 func NewRouter(purchaseController controller.PurchaseOrderController) *httprouter.Router {

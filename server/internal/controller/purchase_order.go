@@ -5,10 +5,10 @@ import (
 	"strconv"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/mochammadshenna/aplikasi-po/model/api"
-	"github.com/mochammadshenna/aplikasi-po/service"
-	"github.com/mochammadshenna/aplikasi-po/util/helper"
-	"github.com/mochammadshenna/aplikasi-po/util/httphelper"
+	"github.com/mochammadshenna/aplikasi-po/internal/model/api"
+	"github.com/mochammadshenna/aplikasi-po/internal/service"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/helper"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/httphelper"
 )
 
 type PurchaseOrder struct {

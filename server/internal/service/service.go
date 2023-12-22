@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	"github.com/mochammadshenna/aplikasi-po/model/api"
+	"github.com/mochammadshenna/aplikasi-po/internal/model/api"
 )
 
 type Service interface {

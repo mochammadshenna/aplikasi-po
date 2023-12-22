@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/mochammadshenna/aplikasi-po/util/exceptioncode"
-	"github.com/mochammadshenna/aplikasi-po/util/helper"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/exceptioncode"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/helper"
 )
 
 type (

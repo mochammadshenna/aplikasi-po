@@ -7,15 +7,16 @@ import (
 	_ "github.com/lib/pq"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/mochammadshenna/aplikasi-po/app"
 	config "github.com/mochammadshenna/aplikasi-po/configs"
-	"github.com/mochammadshenna/aplikasi-po/controller"
-	"github.com/mochammadshenna/aplikasi-po/repository"
-	"github.com/mochammadshenna/aplikasi-po/routes"
-	"github.com/mochammadshenna/aplikasi-po/service"
-	"github.com/mochammadshenna/aplikasi-po/state"
-	"github.com/mochammadshenna/aplikasi-po/util/helper"
-	"github.com/mochammadshenna/aplikasi-po/util/logger"
+	"github.com/mochammadshenna/aplikasi-po/internal/app"
+	"github.com/mochammadshenna/aplikasi-po/internal/app/middleware"
+	"github.com/mochammadshenna/aplikasi-po/internal/controller"
+	"github.com/mochammadshenna/aplikasi-po/internal/repository"
+	"github.com/mochammadshenna/aplikasi-po/internal/routes"
+	"github.com/mochammadshenna/aplikasi-po/internal/service"
+	"github.com/mochammadshenna/aplikasi-po/internal/state"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/helper"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/logger"
 )
 
 func main() {
@@ -35,7 +36,7 @@ func main() {
 
 	server := http.Server{
 		Addr:    host,
-		Handler: router,
+		Handler: middleware.MultipleMiddleware(middleware.NewHttpMiddleware(router)),
 	}
 
 	err := server.ListenAndServe()

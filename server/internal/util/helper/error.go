@@ -5,8 +5,8 @@ import (
 	"database/sql"
 
 	"github.com/lib/pq"
-	"github.com/mochammadshenna/aplikasi-po/util/exceptioncode"
-	"github.com/mochammadshenna/aplikasi-po/util/logger"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/exceptioncode"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/logger"
 )
 
 func PanicError(err error) {

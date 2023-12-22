@@ -9,7 +9,7 @@ import (
 	"time"
 
 	stackdriver "github.com/TV4/logrus-stackdriver-formatter"
-	"github.com/mochammadshenna/aplikasi-po/state"
+	"github.com/mochammadshenna/aplikasi-po/internal/state"
 
 	"github.com/natefinch/lumberjack"
 	"github.com/sirupsen/logrus"
