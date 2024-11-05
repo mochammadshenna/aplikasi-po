@@ -19,7 +19,7 @@ func newDb(dbName string) *sql.DB {
 
 	var dbConfig = config.Get().Database
 
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+"password=%s dbname=%s",
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+"password=%s dbname=%s sslmode=disable",
 		dbConfig.Host,
 		dbConfig.Port,
 		dbConfig.Username,

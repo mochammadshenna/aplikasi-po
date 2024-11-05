@@ -10,4 +10,4 @@ database:
   port: 5432
   dbName: "arbrion_db"
   username: "postgres"
-  password: "postgres"
+  password: ""

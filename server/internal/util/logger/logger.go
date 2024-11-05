@@ -42,8 +42,6 @@ func Init() {
 	mw := io.MultiWriter(os.Stdout, lumberjackLogger)
 	Logger.SetOutput(mw)
 
-	fmt.Println("Logger dipanggil")
-
 	/**
 	* If the logger save on file and watcher it
 	**/

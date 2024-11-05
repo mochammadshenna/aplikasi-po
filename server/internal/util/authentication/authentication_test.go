@@ -6,10 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mochammadshenna/aplikasi-po/util/authentication"
+	"github.com/mochammadshenna/aplikasi-po/internal/util/authentication"
 	"github.com/stretchr/testify/assert"
 )
-
 
 func TestAuthentication(t *testing.T) {
 	authentication.Init("ylEHnM9TGlVtNHFnpcmxp6c9BGJ6XqZX")
