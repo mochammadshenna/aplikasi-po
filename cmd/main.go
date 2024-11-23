@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	config "github.com/mochammadshenna/aplikasi-po/configs"
-	"github.com/mochammadshenna/aplikasi-po/internal/app"
+	"github.com/mochammadshenna/aplikasi-po/internal/app/database"
 	"github.com/mochammadshenna/aplikasi-po/internal/app/middleware"
 	"github.com/mochammadshenna/aplikasi-po/internal/controller"
 	"github.com/mochammadshenna/aplikasi-po/internal/repository"
@@ -24,7 +24,7 @@ func main() {
 	logger.Init()
 
 	validate := validator.New()
-	db := app.NewDb()
+	db := database.NewDb()
 
 	purchaseRepository := repository.NewPurchaseRepository()
 	purchaseService := service.NewPurchaseOrderService(purchaseRepository, db, validate)
