@@ -1,6 +1,4 @@
 package model
-<<<<<<< HEAD
-=======
 
 type GoogleCredential struct {
 	Credential string `json:"credential"`
@@ -18,4 +16,3 @@ type UserResponse struct {
 	Name    string `json:"name"`
 	Picture string `json:"picture"`
 }
->>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f

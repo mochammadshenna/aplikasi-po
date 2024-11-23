@@ -5,17 +5,11 @@ CREATE TABLE admins (
   created_at timestamp without time zone,
   updated_at timestamp without time zone,
   email varchar(255),
-<<<<<<< HEAD
-  password varchar(255)
-=======
   password varchar(255),
->>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
 );
 
 -- migrate:down
 DROP TABLE admins;
-<<<<<<< HEAD
-=======
 
 
 ALTER TABLE admins
@@ -44,4 +38,3 @@ ALTER COLUMN updated_at DROP DEFAULT;
 
 ALTER TABLE admins
 DROP CONSTRAINT IF EXISTS admins_email_unique;
->>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f

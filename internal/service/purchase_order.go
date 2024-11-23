@@ -3,12 +3,8 @@ package service
 import (
 	"context"
 	"database/sql"
-<<<<<<< HEAD
-	"fmt"
-=======
 	"errors"
 	"os"
->>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
 	"time"
 
 	"github.com/go-playground/validator/v10"
@@ -19,13 +15,9 @@ import (
 	"github.com/mochammadshenna/aplikasi-po/internal/util/exceptioncode"
 	"github.com/mochammadshenna/aplikasi-po/internal/util/helper"
 	"github.com/mochammadshenna/aplikasi-po/internal/util/logger"
-<<<<<<< HEAD
-	"github.com/mochammadshenna/aplikasi-po/internal/util/password"
-=======
 	"golang.org/x/exp/rand"
 	"google.golang.org/api/oauth2/v1"
 	"google.golang.org/api/option"
->>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
 )
 
 type PurchaseOrderService struct {
@@ -43,30 +35,6 @@ func NewPurchaseOrderService(purchaseRepository repository.PurchaseOrderReposito
 }
 
 func (service *PurchaseOrderService) Login(ctx context.Context, request api.AuthAdminRequest) (api.AuthAdminResponse, error) {
-<<<<<<< HEAD
-	err := service.Validate.Struct(request)
-	helper.PanicOnErrorContext(ctx, err)
-	var result = api.AuthAdminResponse{}
-
-	tx, err := service.DB.Begin()
-	helper.PanicOnErrorContext(ctx, err)
-	defer helper.CommitOrRollback(tx)
-
-	dataAdmin, err := service.PurchaseOrderRepository.FindAdminByEmail(ctx, tx, request.Email)
-	fmt.Println(dataAdmin)
-	if err != nil {
-		return api.AuthAdminResponse{}, api.ErrorResponse{Code: exceptioncode.CodeInvalidCredential, Message: "Incorrect email or password"}
-	}
-
-	err = password.CheckHashPassword(request.Password, dataAdmin.Password)
-	if err != nil {
-		return api.AuthAdminResponse{}, api.ErrorResponse{Code: exceptioncode.CodeInvalidCredential, Message: "Incorrect email or password"}
-	}
-
-	result.Token = authentication.CreateToken(time.Minute*1440, dataAdmin.Id)
-	result.Name = dataAdmin.Name
-	return result, nil
-=======
 	// Validate request
 	if err := service.Validate.Struct(request); err != nil {
 		return api.AuthAdminResponse{}, err
@@ -92,7 +60,6 @@ func (service *PurchaseOrderService) Login(ctx context.Context, request api.Auth
 		Token: token,
 		Name:  admin.Name,
 	}, nil
->>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
 }
 
 func (service *PurchaseOrderService) FindAllPurchaseOrder(ctx context.Context) (api.FindAllPurchaceOrderRepsonse, error) {
@@ -268,8 +235,6 @@ func (service *PurchaseOrderService) FindFinishingFactory(ctx context.Context, r
 	logger.Info(ctx, "Successfully get finishing factory")
 	return res
 }
-<<<<<<< HEAD
-=======
 
 func (service *PurchaseOrderService) GoogleLogin(ctx context.Context, credential string) (api.AuthAdminResponse, error) {
 	err := service.Validate.Struct(credential)
@@ -329,4 +294,3 @@ func (service *PurchaseOrderService) generateRandomPassword() string {
 	}
 	return string(b)
 }
->>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f

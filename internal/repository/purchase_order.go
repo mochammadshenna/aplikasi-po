@@ -8,27 +8,9 @@ import (
 	"github.com/mochammadshenna/aplikasi-po/internal/entity"
 	"github.com/mochammadshenna/aplikasi-po/internal/util/exceptioncode"
 	"github.com/mochammadshenna/aplikasi-po/internal/util/helper"
-<<<<<<< HEAD
-)
-
-type PurchaseOrderRepository interface {
-	FindAdminByEmail(ctx context.Context, tx *sql.Tx, email string) (entity.Admin, error)
-
-	FindAll(ctx context.Context, tx *sql.Tx) ([]entity.PurchaseOrder, error)
-	FindById(ctx context.Context, tx *sql.Tx, poId int) (entity.PurchaseOrder, error)
-	SavePurchaseOrder(ctx context.Context, tx *sql.Tx, po entity.PurchaseOrder) (entity.PurchaseOrder, error)
-	UpdatePurchaseOrder(ctx context.Context, tx *sql.Tx, po entity.PurchaseOrder, poIds int64) (entity.PurchaseOrder, error)
-	DeletePurchaseOrder(ctx context.Context, tx *sql.Tx, poId int64)
-
-	FindFinishingFactory(ctx context.Context, tx *sql.Tx, codeId int) (entity.FinishingFactory, error)
-	FindProductionFactory(ctx context.Context, tx *sql.Tx, codeId int) (entity.ProductionFactory, error)
-}
-
-=======
 	"github.com/mochammadshenna/aplikasi-po/internal/util/password"
 )
 
->>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
 type repository struct {
 }
 
@@ -313,8 +295,6 @@ func (repository *repository) FindProductionFactory(ctx context.Context, tx *sql
 		return pc, errors.New("PO is not found")
 	}
 }
-<<<<<<< HEAD
-=======
 
 func (repository *repository) SaveAdmin(ctx context.Context, tx *sql.Tx, admin entity.Admin) error {
 	// Hash the password before saving
@@ -361,4 +341,3 @@ func (repo *repository) ValidateAdminCredentials(ctx context.Context, tx *sql.Tx
 
 	return admin, nil
 }
->>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f

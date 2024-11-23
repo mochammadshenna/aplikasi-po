@@ -84,14 +84,6 @@ type FinishingFactory struct {
 }
 
 type Admin struct {
-<<<<<<< HEAD
-	Id        int64
-	Name      string
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	Email     string
-	Password  string
-=======
 	Id        int64     `json:"id"`
 	Email     string    `json:"email"`
 	Name      string    `json:"name"`
@@ -110,5 +102,4 @@ type User struct {
 	Provider  string    `json:"provider"` // "google" or "email"
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
->>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
 }

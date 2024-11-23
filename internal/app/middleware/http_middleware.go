@@ -90,8 +90,6 @@ func (rw *responseWriter) WriteHeader(code int) {
 	rw.ResponseWriter.WriteHeader(code)
 	rw.wroteHeader = true
 }
-<<<<<<< HEAD
-=======
 
 func CorsMiddleware(next httprouter.Handle) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -107,4 +105,3 @@ func CorsMiddleware(next httprouter.Handle) httprouter.Handle {
 		next(w, r, ps)
 	}
 }
->>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
