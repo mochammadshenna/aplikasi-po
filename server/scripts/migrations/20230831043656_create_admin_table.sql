@@ -5,7 +5,7 @@ CREATE TABLE admins (
   created_at timestamp without time zone,
   updated_at timestamp without time zone,
   email varchar(255),
-  password varchar(255),
+  password varchar(255)
 );
 
 -- migrate:down

@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	"time"
 
 	"github.com/go-playground/validator/v10"
@@ -40,6 +41,7 @@ func (service *PurchaseOrderService) Login(ctx context.Context, request api.Auth
 	defer helper.CommitOrRollback(tx)
 
 	dataAdmin, err := service.PurchaseOrderRepository.FindAdminByEmail(ctx, tx, request.Email)
+	fmt.Println(dataAdmin)
 	if err != nil {
 		return api.AuthAdminResponse{}, api.ErrorResponse{Code: exceptioncode.CodeInvalidCredential, Message: "Incorrect email or password"}
 	}
