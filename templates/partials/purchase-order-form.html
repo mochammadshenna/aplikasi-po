@@ -1,0 +1,36 @@
+{{define "purchase-order-form"}}
+<div class="modal-backdrop" _="on click if target.id == 'modal-backdrop' remove me">
+    <div class="modal-content">
+        <div class="modal-header">
+            {{if .Id}}Edit{{else}}Create{{end}} Purchase Order
+        </div>
+
+        <form hx-post="{{ if .Id }}/api/purchase/{{ .Id }}{{ else }}/api/purchase{{ end }}" hx-target="#orders-table"
+            class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Production Factory</label>
+                <input type="text" name="production_factory" value="{{ .ProductionFactory }}"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">PIC Name</label>
+                <input type="text" name="pic_name" value="{{ .PICName }}"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+            </div>
+
+            <!-- Add other fields -->
+
+            <div class="flex justify-end space-x-3">
+                <button type="button" onclick="document.getElementById('modal').classList.add('hidden')"
+                    class="bg-gray-200 px-4 py-2 rounded">
+                    Cancel
+                </button>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
+                    {{ if .Id }}Update{{ else }}Create{{ end }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{{end}}
