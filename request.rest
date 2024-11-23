@@ -4,40 +4,68 @@ POST http://localhost:5000/login?email=indria@yopmail.com&password=admin
 ###
 GET http://localhost:5000/api/purchase
 Content-Type: application/json
+<<<<<<< HEAD
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE3MzI0MTY3MDcsImlhdCI6MTczMjMzMDMwN30.-F4xOJKBNXWZhuycALDsOcuBFWITGmAzverOB4pMOxA
+=======
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE3MzI0MjU5NDksImlhdCI6MTczMjMzOTU0OX0.DonOIntjwsI18Nfegyd6aWlITovIH-t7hrpk0Zc2TX4
+>>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
 
 
 ###
 GET http://localhost:5000/api/purchase/1
 Content-Type: application/json
+<<<<<<< HEAD
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE3MzI0MTY3MDcsImlhdCI6MTczMjMzMDMwN30.-F4xOJKBNXWZhuycALDsOcuBFWITGmAzverOB4pMOxA
+=======
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE3MzI0MjU5NDksImlhdCI6MTczMjMzOTU0OX0.DonOIntjwsI18Nfegyd6aWlITovIH-t7hrpk0Zc2TX4
+>>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
 
 ###
 POST http://localhost:5000/api/purchase
 Content-Type: application/json
+<<<<<<< HEAD
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE3MzI0MTY3MDcsImlhdCI6MTczMjMzMDMwN30.-F4xOJKBNXWZhuycALDsOcuBFWITGmAzverOB4pMOxA
+=======
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE3MzI0MjU5NDksImlhdCI6MTczMjMzOTU0OX0.DonOIntjwsI18Nfegyd6aWlITovIH-t7hrpk0Zc2TX4
+>>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
 
 
 ###
 PUT http://localhost:5000/api/purchase/1
 Content-Type: application/json
+<<<<<<< HEAD
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE3MzI0MTY3MDcsImlhdCI6MTczMjMzMDMwN30.-F4xOJKBNXWZhuycALDsOcuBFWITGmAzverOB4pMOxA
+=======
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE3MzI0MjU5NDksImlhdCI6MTczMjMzOTU0OX0.DonOIntjwsI18Nfegyd6aWlITovIH-t7hrpk0Zc2TX4
+>>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
 
 
 
 ###
 DELETE  http://localhost:5000/api/purchase/1
 Content-Type: application/json
+<<<<<<< HEAD
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE3MzI0MTY3MDcsImlhdCI6MTczMjMzMDMwN30.-F4xOJKBNXWZhuycALDsOcuBFWITGmAzverOB4pMOxA
+=======
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE3MzI0MjU5NDksImlhdCI6MTczMjMzOTU0OX0.DonOIntjwsI18Nfegyd6aWlITovIH-t7hrpk0Zc2TX4
+>>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
 
 
 ###
 GET http://localhost:5000/api/production/1
 Content-Type: application/json
+<<<<<<< HEAD
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE3MzI0MTY3MDcsImlhdCI6MTczMjMzMDMwN30.-F4xOJKBNXWZhuycALDsOcuBFWITGmAzverOB4pMOxA
+=======
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE3MzI0MjU5NDksImlhdCI6MTczMjMzOTU0OX0.DonOIntjwsI18Nfegyd6aWlITovIH-t7hrpk0Zc2TX4
+>>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
 
 
 ###
 GET http://localhost:5000/api/finishing/1
 Content-Type: application/json
+<<<<<<< HEAD
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE3MzI0MTY3MDcsImlhdCI6MTczMjMzMDMwN30.-F4xOJKBNXWZhuycALDsOcuBFWITGmAzverOB4pMOxA
+=======
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxLCJleHAiOjE3MzI0MjU5NDksImlhdCI6MTczMjMzOTU0OX0.DonOIntjwsI18Nfegyd6aWlITovIH-t7hrpk0Zc2TX4
+>>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f

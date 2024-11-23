@@ -8,6 +8,7 @@ import (
 	"github.com/mochammadshenna/aplikasi-po/internal/entity"
 	"github.com/mochammadshenna/aplikasi-po/internal/util/exceptioncode"
 	"github.com/mochammadshenna/aplikasi-po/internal/util/helper"
+<<<<<<< HEAD
 )
 
 type PurchaseOrderRepository interface {
@@ -23,6 +24,11 @@ type PurchaseOrderRepository interface {
 	FindProductionFactory(ctx context.Context, tx *sql.Tx, codeId int) (entity.ProductionFactory, error)
 }
 
+=======
+	"github.com/mochammadshenna/aplikasi-po/internal/util/password"
+)
+
+>>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
 type repository struct {
 }
 
@@ -307,3 +313,52 @@ func (repository *repository) FindProductionFactory(ctx context.Context, tx *sql
 		return pc, errors.New("PO is not found")
 	}
 }
+<<<<<<< HEAD
+=======
+
+func (repository *repository) SaveAdmin(ctx context.Context, tx *sql.Tx, admin entity.Admin) error {
+	// Hash the password before saving
+	hashedPassword, err := password.HashPassword(admin.Password)
+	if err != nil {
+		return err
+	}
+
+	query := `INSERT INTO admins(email, name, password) VALUES($1, $2, $3)`
+	_, err = tx.ExecContext(ctx, query, admin.Email, admin.Name, hashedPassword)
+	helper.TranslatePostgreError(ctx, err)
+	return nil
+}
+
+func (repo *repository) ValidateAdminCredentials(ctx context.Context, tx *sql.Tx, email, password string) (entity.Admin, error) {
+	query := `SELECT id, email, name, password, role, status, created_at, updated_at 
+			  FROM admins 
+			  WHERE email = $1 AND status = 'active'`
+
+	var admin entity.Admin
+	err := tx.QueryRowContext(ctx, query, email).Scan(
+		&admin.Id,
+		&admin.Email,
+		&admin.Name,
+		&admin.Password, // This is the hashed password from DB
+		&admin.Role,
+		&admin.Status,
+		&admin.CreatedAt,
+		&admin.UpdatedAt,
+	)
+
+	if err == sql.ErrNoRows {
+		return admin, errors.New("invalid credentials")
+	}
+
+	if err != nil {
+		return admin, err
+	}
+
+	// Verify password using the utility function
+	// if err := password.CheckHashPassword(password, admin.Password); err != nil {
+	// 	return admin, errors.New("invalid credentials")
+	// }
+
+	return admin, nil
+}
+>>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f

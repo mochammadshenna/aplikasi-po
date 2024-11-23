@@ -32,7 +32,11 @@
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contact">Contact</a></li>
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
   </ol>
 </details>
 
@@ -63,3 +67,9 @@ Arbrion
 [ERD Arbrion](https://dbdiagram.io/d/64f4613402bd1c4a5edf7d61)
 
 [Arbrion Workspace Postman](https://documenter.getpostman.com/view/18476954/2s9Y5bR2Dz)
+<<<<<<< HEAD
+=======
+
+npm run build:css
+make run
+>>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f

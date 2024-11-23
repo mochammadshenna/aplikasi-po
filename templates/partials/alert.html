@@ -1,0 +1,5 @@
+{{define "alert"}}
+<div class="alert alert-{{.Type}} htmx-settling" _="on load wait 5s then remove me">
+    {{.Message}}
+</div>
+{{end}}

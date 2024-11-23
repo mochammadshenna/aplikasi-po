@@ -46,4 +46,8 @@ mock:
 	mockery --all
 
 hello:
+<<<<<<< HEAD
 	echo "Hello"
+=======
+	echo "Hello"
+>>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f

@@ -3,7 +3,12 @@ package service
 import (
 	"context"
 	"database/sql"
+<<<<<<< HEAD
 	"fmt"
+=======
+	"errors"
+	"os"
+>>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
 	"time"
 
 	"github.com/go-playground/validator/v10"
@@ -14,7 +19,13 @@ import (
 	"github.com/mochammadshenna/aplikasi-po/internal/util/exceptioncode"
 	"github.com/mochammadshenna/aplikasi-po/internal/util/helper"
 	"github.com/mochammadshenna/aplikasi-po/internal/util/logger"
+<<<<<<< HEAD
 	"github.com/mochammadshenna/aplikasi-po/internal/util/password"
+=======
+	"golang.org/x/exp/rand"
+	"google.golang.org/api/oauth2/v1"
+	"google.golang.org/api/option"
+>>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
 )
 
 type PurchaseOrderService struct {
@@ -32,6 +43,7 @@ func NewPurchaseOrderService(purchaseRepository repository.PurchaseOrderReposito
 }
 
 func (service *PurchaseOrderService) Login(ctx context.Context, request api.AuthAdminRequest) (api.AuthAdminResponse, error) {
+<<<<<<< HEAD
 	err := service.Validate.Struct(request)
 	helper.PanicOnErrorContext(ctx, err)
 	var result = api.AuthAdminResponse{}
@@ -54,6 +66,33 @@ func (service *PurchaseOrderService) Login(ctx context.Context, request api.Auth
 	result.Token = authentication.CreateToken(time.Minute*1440, dataAdmin.Id)
 	result.Name = dataAdmin.Name
 	return result, nil
+=======
+	// Validate request
+	if err := service.Validate.Struct(request); err != nil {
+		return api.AuthAdminResponse{}, err
+	}
+
+	// Start transaction
+	tx, err := service.DB.Begin()
+	if err != nil {
+		return api.AuthAdminResponse{}, err
+	}
+	defer helper.CommitOrRollback(tx)
+
+	// Validate credentials
+	admin, err := service.PurchaseOrderRepository.ValidateAdminCredentials(ctx, tx, request.Email, request.Password)
+	if err != nil {
+		return api.AuthAdminResponse{}, err
+	}
+
+	// Generate JWT token
+	token := authentication.CreateToken(time.Hour*24, admin.Id)
+
+	return api.AuthAdminResponse{
+		Token: token,
+		Name:  admin.Name,
+	}, nil
+>>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
 }
 
 func (service *PurchaseOrderService) FindAllPurchaseOrder(ctx context.Context) (api.FindAllPurchaceOrderRepsonse, error) {
@@ -229,3 +268,65 @@ func (service *PurchaseOrderService) FindFinishingFactory(ctx context.Context, r
 	logger.Info(ctx, "Successfully get finishing factory")
 	return res
 }
+<<<<<<< HEAD
+=======
+
+func (service *PurchaseOrderService) GoogleLogin(ctx context.Context, credential string) (api.AuthAdminResponse, error) {
+	err := service.Validate.Struct(credential)
+	helper.PanicError(err)
+
+	tx, err := service.DB.Begin()
+	helper.PanicError(err)
+	defer helper.CommitOrRollback(tx)
+
+	// Initialize the OAuth2 service
+	oauth2Service, err := oauth2.NewService(ctx, option.WithAPIKey(os.Getenv("GOOGLE_CLIENT_ID")))
+	if err != nil {
+		return api.AuthAdminResponse{}, errors.New("failed to initialize OAuth service")
+	}
+
+	// Verify the Google token
+	tokenInfo, err := oauth2Service.Tokeninfo().IdToken(credential).Do()
+	if err != nil {
+		return api.AuthAdminResponse{}, errors.New("invalid token")
+	}
+
+	// Check if admin exists in database
+	admin, err := service.PurchaseOrderRepository.FindAdminByEmail(ctx, tx, tokenInfo.Email)
+	if err != nil {
+		// Create new admin if doesn't exist
+		admin = entity.Admin{
+			Email:    tokenInfo.Email,
+			Password: service.generateRandomPassword(),
+			Role:     "admin",
+			Status:   "active",
+		}
+
+		err = service.PurchaseOrderRepository.SaveAdmin(ctx, tx, admin)
+		if err != nil {
+			logger.Errorf(ctx, "Failed to create admin from Google login: %v", err)
+			return api.AuthAdminResponse{}, errors.New("failed to create admin")
+		}
+	}
+
+	// Generate JWT token
+	token := authentication.CreateToken(time.Minute*1440, admin.Id)
+
+	return api.AuthAdminResponse{
+		Token: token,
+		Name:  admin.Name,
+	}, nil
+}
+
+// Add this helper function to generate a random password for Google-authenticated users
+func (service *PurchaseOrderService) generateRandomPassword() string {
+	const length = 16
+	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*"
+
+	b := make([]byte, length)
+	for i := range b {
+		b[i] = charset[rand.Intn(len(charset))]
+	}
+	return string(b)
+}
+>>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f

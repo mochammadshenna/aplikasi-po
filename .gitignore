@@ -39,3 +39,32 @@ configs/service-account*
 
 # dependencies
 dependencies
+<<<<<<< HEAD
+=======
+
+
+./node_modules/
+node_modules/
+
+# Tailwind CSS
+/public/css/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+tmp/
+.air.log
+
+# Build
+/bin
+/tmp
+
+# IDE
+.idea/
+.vscode/
+
+
+>>>>>>> ffd4b1225fa304d1a73819bffb534cf23222fb2f
